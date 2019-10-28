@@ -42,18 +42,18 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
             <div class="sidebar-brand-text mx-3">AMT Project One</div>
         </a>
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="./viewers">
+            <a class="nav-link" href="${pathToViewers}">
                 <span>Viewers</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="./series">
+            <a class="nav-link" href="${pathToSeries}">
                 <span>Series</span></a>
         </li>
         <!-- Divider -->
@@ -187,7 +187,7 @@
             <div class="modal-body">Voulez-vous vous déconnecter ?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Retour</button>
-                <a class="btn btn-primary" href="../logout">Se déconnecter</a>
+                <a class="btn btn-primary" href="${pathToLogout}">Se déconnecter</a>
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -26,6 +27,6 @@ public class DeleteSerieServlet extends HttpServlet {
             seriesManagerLocal.delete(idserie);
         }
 
-        response.sendRedirect(request.getContextPath() + "/restreint/series");
+        response.sendRedirect(Route.DELETE_SERIE);
     }
 }

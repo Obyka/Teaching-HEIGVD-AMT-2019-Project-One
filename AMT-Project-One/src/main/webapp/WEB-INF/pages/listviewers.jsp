@@ -42,18 +42,18 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
             <div class="sidebar-brand-text mx-3">AMT Project One</div>
         </a>
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="./viewers">
+            <a class="nav-link" href="${pathToViewers}">
                 <span>Viewers</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="./series">
+            <a class="nav-link" href="${pathToSeries}">
                 <span>Series</span></a>
         </li>
         <!-- Divider -->
@@ -149,7 +149,7 @@
                                             <td>${viewer.genre}</td>
                                             <td>${viewer.birthDate}</td>
                                             <td><a href="#">Voir</a></td>
-                                            <td><a href="./deleteviewer?idviewer=${viewer.id}">Supprimer</a></td>
+                                            <td><a href="${pathToDeleteViewer}?idviewer=${viewer.id}">Supprimer</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -157,7 +157,7 @@
                         </div>
                         <div class="pagination">
                             <c:forEach begin="1" end="${nbPage}" var="val">
-                            <a href=<c:out value="./viewers?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                            <a href=<c:out value="${pathToViewers}?pagetable=${val-1}"/>><c:out value="${val}"/></a>
                             </c:forEach>
                         </div>
                     </div>
@@ -187,7 +187,7 @@
             <div class="modal-body">Voulez-vous vous déconnecter ?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Retour</button>
-                <a class="btn btn-primary" href="../logout">Logout</a>
+                <a class="btn btn-primary" href=".${pathToLogout}">Logout</a>
             </div>
         </div>
     </div>

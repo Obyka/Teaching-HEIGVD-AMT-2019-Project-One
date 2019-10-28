@@ -1,5 +1,7 @@
 package ch.heig.amt.project.one.filter;
 
+import ch.heig.amt.project.one.path.Route;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ public class loginFilter implements Filter {
          */
         if (session.getAttribute("user") == null ) {
             /* Redirection vers la page publique */
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(Route.LOGIN);
         } else {
             /* Affichage de la page restreinte */
             chain.doFilter( request, response );

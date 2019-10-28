@@ -3,6 +3,7 @@ package ch.heig.amt.project.one.presentation;
 import ch.heig.amt.project.one.business.interfaces.ViewersManagerLocal;
 import ch.heig.amt.project.one.model.User;
 import ch.heig.amt.project.one.model.Viewer;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -34,6 +35,10 @@ public class ListViewersServlet extends HttpServlet {
         int nbPage = viewersManagerLocal.count() / NB_RECORD_PRINT + ((viewers.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
 
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("pathToViewers", Route.ALL_VIEWER);
+        request.setAttribute("pathToSeries", Route.ALL_SERIE);
+        request.setAttribute("pathToDeleteViewer", Route.DELETE_VIEWER);
+        request.setAttribute("pathToLogout", Route.LOGOUT);
         request.setAttribute("username", username);
         request.setAttribute("nbPage", nbPage);
         request.setAttribute("viewers", viewers);

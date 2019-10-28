@@ -3,6 +3,7 @@ package ch.heig.amt.project.one.presentation;
 import ch.heig.amt.project.one.business.interfaces.ViewersManagerLocal;
 import ch.heig.amt.project.one.model.User;
 import ch.heig.amt.project.one.model.Viewer;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -77,6 +78,8 @@ public class AddViewerServlet extends HttpServlet {
         } else {
             request.setAttribute("errors", errors);
         }
+        request.setAttribute("pathToAddViewer", Route.ADD_VIEWER);
+        request.setAttribute("pathToViewers", Route.ALL_VIEWER);
         request.getRequestDispatcher("/WEB-INF/pages/addViewer.jsp").forward(request, response);
     }
 

@@ -3,6 +3,7 @@ package ch.heig.amt.project.one.presentation;
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
 import ch.heig.amt.project.one.model.Serie;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -64,6 +65,8 @@ public class AddSerieServlet extends HttpServlet {
         } else {
             request.setAttribute("errors", errors);
         }
+        request.setAttribute("pathToAddSerie", Route.ADD_SERIE);
+        request.setAttribute("pathToSeries", Route.ALL_SERIE);
         request.getRequestDispatcher("/WEB-INF/pages/addSerie.jsp").forward(request, response);
     }
 

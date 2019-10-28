@@ -2,6 +2,7 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -45,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
         if(errors.size() == 0) {
             boolean createdUser = usersManagerLocal.create(username, password1);
             if(createdUser) {
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(Route.LOGIN);
             }
         } else {
             request.setAttribute("errors", errors);

@@ -35,7 +35,7 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Inscription</h1>
                         </div>
-                        <form class="user" method="POST" action="./register">
+                        <form class="user" method="POST" action="${pathToRegister}">
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur">
                             </div>
@@ -49,7 +49,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="./login">Déjà membre ? Se connecter</a>
+                            <a class="small" href="${pathToLogin}">Déjà membre ? Se connecter</a>
                         </div>
                         <c:if test="${errors != null}">
                             <hr>

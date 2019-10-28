@@ -3,6 +3,7 @@ package ch.heig.amt.project.one.presentation;
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
 import ch.heig.amt.project.one.model.Serie;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -28,6 +29,11 @@ public class ListSeriesServlet extends HttpServlet {
         List<Serie> series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
         int nbPage = seriesManager.count() / NB_RECORD_PRINT + ((series.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
         resp.setContentType("text/html;charset=UTF-8");
+        req.setAttribute("pathToViewers", Route.ALL_VIEWER);
+        req.setAttribute("pathToSeries", Route.ALL_SERIE);
+        req.setAttribute("pathToDeleteSerie", Route.DELETE_SERIE);
+        req.setAttribute("pathToDetailSerie", Route.DETAIL_SERIE);
+        req.setAttribute("pathToLogout", Route.LOGOUT);
         req.setAttribute("nbPage", nbPage);
         req.setAttribute("username", username);
         req.setAttribute("series", series);

@@ -36,7 +36,7 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Ajouter un viewer</h1>
                         </div>
-                        <form class="user" method="POST" action="./addviewer">
+                        <form class="user" method="POST" action="${pathToAddViewer}">
                             <div class="form-group">
                                 <input type="text" name="firstname" class="form-control form-control-user" placeholder="Prénom">
                             </div>
@@ -51,7 +51,6 @@
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                                 <option value="Non binaire">Non binaire</option>
-                                <option value="Androgyne">Androgyne</option>
                             </select>
                             <div class="form-group">
                                 <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd">
@@ -60,7 +59,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="#">Retour</a>
+                            <a class="small" href="${pathToViewers}">Retour</a>
                         </div>
                         <c:if test="${errors != null}">
                             <hr>

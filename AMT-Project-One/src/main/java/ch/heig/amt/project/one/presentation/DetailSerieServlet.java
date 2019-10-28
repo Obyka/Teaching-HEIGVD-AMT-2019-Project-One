@@ -7,6 +7,7 @@ import ch.heig.amt.project.one.model.Serie;
 import ch.heig.amt.project.one.model.User;
 import ch.heig.amt.project.one.model.Viewer;
 import ch.heig.amt.project.one.model.WatchingInfo;
+import ch.heig.amt.project.one.path.Route;
 import ch.heig.amt.project.one.utils.Pair;
 
 import javax.ejb.EJB;
@@ -54,12 +55,17 @@ public class DetailSerieServlet extends HttpServlet {
                 viewersInfo.add(pair);
             }
             response.setContentType("text/html;charset=UTF-8");
+            request.setAttribute("pathToViewers", Route.ALL_VIEWER);
+            request.setAttribute("pathToSeries", Route.ALL_SERIE);
+            request.setAttribute("pathToAddSerie", Route.ADD_SERIE);
+            request.setAttribute("pathToDetailSerie", Route.DETAIL_SERIE);
+            request.setAttribute("pathToLogout", Route.LOGOUT);
             request.setAttribute("username", user.getUsername());
             request.setAttribute("serie", serie);
             request.setAttribute("viewersInfos", viewersInfo);
             request.getRequestDispatcher("/WEB-INF/pages/detailserie.jsp").forward(request, response);
         } else {
-            response.sendRedirect(request.getContextPath() + "/restreint/series");
+            response.sendRedirect(Route.ADD_SERIE);
         }
     }
 }

@@ -1,5 +1,7 @@
 package ch.heig.amt.project.one.presentation;
 
+import ch.heig.amt.project.one.path.Route;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,6 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath() + "/restreint/login");
+        response.sendRedirect(Route.LOGOUT);
     }
 }

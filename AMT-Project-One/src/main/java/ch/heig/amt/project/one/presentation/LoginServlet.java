@@ -2,6 +2,7 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.path.Route;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,6 +20,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("pathToLogin", Route.LOGIN);
+        request.setAttribute("pathToRegister", Route.REGISTER);
         request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
     }
 
@@ -43,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             User user = usersManagerLocal.findUserByUsername(username);
             request.getSession(true);
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/restreint/series");
+            response.sendRedirect(Route.ALL_SERIE);
         } else {
             request.setAttribute("errors", errors);
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);

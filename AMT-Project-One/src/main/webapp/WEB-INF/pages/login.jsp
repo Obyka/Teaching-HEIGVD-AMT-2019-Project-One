@@ -35,7 +35,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Page de connexion</h1>
               </div>
-              <form class="user" method="POST" action="./login">
+              <form class="user" method="POST" action="${pathToLogin}">
                 <div class="form-group">
                   <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur">
                 </div>
@@ -46,7 +46,7 @@
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="./register">Pas encore membre ? Créer un compte</a>
+                <a class="small" href="${pathToRegister}">Pas encore membre ? Créer un compte</a>
               </div>
               <c:if test="${errors != null}">
                 <hr>
