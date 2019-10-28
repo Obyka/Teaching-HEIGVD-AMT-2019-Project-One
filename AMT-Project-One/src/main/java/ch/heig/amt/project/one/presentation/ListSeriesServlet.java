@@ -26,8 +26,9 @@ public class ListSeriesServlet extends HttpServlet {
             pagetable = Integer.valueOf(req.getParameter("pagetable"));
         }
         List<Serie> series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
-
+        int nbPage = seriesManager.count() / NB_RECORD_PRINT + ((series.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
         resp.setContentType("text/html;charset=UTF-8");
+        req.setAttribute("nbPage", nbPage);
         req.setAttribute("username", username);
         req.setAttribute("series", series);
         req.getRequestDispatcher("/WEB-INF/pages/listseries.jsp").forward(req, resp);

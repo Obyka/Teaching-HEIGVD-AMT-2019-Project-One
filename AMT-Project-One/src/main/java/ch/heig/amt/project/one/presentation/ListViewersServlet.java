@@ -31,9 +31,11 @@ public class ListViewersServlet extends HttpServlet {
             pagetable = Integer.valueOf(request.getParameter("pagetable"));
         }
         List<Viewer> viewers = viewersManagerLocal.findAll(user, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
+        int nbPage = viewersManagerLocal.count() / NB_RECORD_PRINT + ((viewers.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
 
         response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("username", username);
+        request.setAttribute("nbPage", nbPage);
         request.setAttribute("viewers", viewers);
         request.getRequestDispatcher("/WEB-INF/pages/listviewers.jsp").forward(request, response);
     }

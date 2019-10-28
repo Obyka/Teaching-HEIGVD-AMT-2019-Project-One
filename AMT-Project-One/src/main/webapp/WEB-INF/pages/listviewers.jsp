@@ -156,16 +156,9 @@
                             </table>
                         </div>
                         <div class="pagination">
-                            <a href="./viewers?pagetable=0">1</a>
-                            <a href="./viewers?pagetable=1">2</a>
-                            <a href="./viewers?pagetable=2">3</a>
-                            <a href="./viewers?pagetable=3">4</a>
-                            <a href="./viewers?pagetable=4">5</a>
-                            <a href="./viewers?pagetable=5">6</a>
-                            <a href="./viewers?pagetable=6">7</a>
-                            <a href="./viewers?pagetable=7">8</a>
-                            <a href="./viewers?pagetable=8">9</a>
-                            <a href="./viewers?pagetable=9">10</a>
+                            <c:forEach begin="1" end="${nbPage}" var="val">
+                            <a href=<c:out value="./viewers?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

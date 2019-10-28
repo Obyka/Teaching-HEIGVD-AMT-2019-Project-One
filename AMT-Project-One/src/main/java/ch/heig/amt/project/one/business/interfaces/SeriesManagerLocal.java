@@ -13,4 +13,5 @@ public interface SeriesManagerLocal {
     public Serie findById(long id);
     public boolean update(Serie s);
     public boolean delete(long id);
+    public int count();
 }

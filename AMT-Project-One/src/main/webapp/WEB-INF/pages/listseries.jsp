@@ -154,16 +154,10 @@
                             </table>
                         </div>
                         <div class="pagination">
-                            <a href="./series?pagetable=0">1</a>
-                            <a href="./series?pagetable=1">2</a>
-                            <a href="./series?pagetable=2">3</a>
-                            <a href="./series?pagetable=3">4</a>
-                            <a href="./series?pagetable=4">5</a>
-                            <a href="./series?pagetable=5">6</a>
-                            <a href="./series?pagetable=6">7</a>
-                            <a href="./series?pagetable=7">8</a>
-                            <a href="./series?pagetable=8">9</a>
-                            <a href="./series?pagetable=9">10</a>
+
+                            <c:forEach begin="1" end="${nbPage}" var="val">
+                                <a href=<c:out value="./series?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

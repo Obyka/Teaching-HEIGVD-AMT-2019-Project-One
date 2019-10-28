@@ -13,4 +13,6 @@ public interface ViewersManagerLocal {
     public Viewer findById(long id);
     public boolean update(Viewer v);
     public boolean delete(long id);
-}
+    public int count();
+
+    }

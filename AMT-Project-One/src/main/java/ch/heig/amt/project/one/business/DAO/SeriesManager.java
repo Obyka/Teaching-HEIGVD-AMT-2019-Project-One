@@ -7,10 +7,7 @@ import ch.heig.amt.project.one.model.User;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -149,5 +146,21 @@ public class SeriesManager implements SeriesManagerLocal {
             Logger.getLogger(ch.heig.amt.project.one.business.DAO.SeriesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return deleted;
+    }
+
+    public int count() {
+        boolean deleted = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("select count(*) from Serie");
+            rs.next();
+            stmt.close();
+            connection.close();
+            return rs.getInt("count(*)");
+        } catch (SQLException e) {
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
+            return -1;
+        }
     }
 }
