@@ -81,6 +81,7 @@ public class ViewersManager implements ViewersManagerLocal {
     @Override
     public Viewer findById(long id) {
         Viewer viewer = Viewer.builder().build();
+        viewer.setId(-1);
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Viewer WHERE ID = ?");

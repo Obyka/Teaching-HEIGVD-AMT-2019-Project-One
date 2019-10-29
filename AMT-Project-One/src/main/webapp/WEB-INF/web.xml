@@ -68,6 +68,15 @@
     <servlet-name>AddViewerServlet</servlet-name>
     <url-pattern>/restreint/addviewer</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ModifyViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifyViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyViewerServlet</servlet-name>
+    <url-pattern>/restreint/modifyviewer</url-pattern>
+  </servlet-mapping>
   
   <servlet>
     <servlet-name>ListViewersServlet</servlet-name>
