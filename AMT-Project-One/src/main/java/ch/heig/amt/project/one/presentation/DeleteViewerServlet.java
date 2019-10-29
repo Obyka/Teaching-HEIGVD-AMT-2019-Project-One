@@ -29,6 +29,6 @@ public class DeleteViewerServlet extends HttpServlet {
             viewersManagerLocal.delete(idviewer);
         }
 
-        response.sendRedirect(Route.DELETE_VIEWER);
+        response.sendRedirect(Route.ALL_VIEWER);
     }
 }

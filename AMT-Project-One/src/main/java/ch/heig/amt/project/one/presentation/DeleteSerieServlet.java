@@ -27,6 +27,6 @@ public class DeleteSerieServlet extends HttpServlet {
             seriesManagerLocal.delete(idserie);
         }
 
-        response.sendRedirect(Route.DELETE_SERIE);
+        response.sendRedirect(Route.ALL_SERIE);
     }
 }
