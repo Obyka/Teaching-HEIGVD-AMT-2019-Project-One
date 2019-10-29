@@ -144,7 +144,7 @@
                                     <th>Genre</th>
                                     <th>Producteur</th>
                                     <th>Restriction d'âge</th>
-                                    <th colspan="2">Action</th>
+                                    <th colspan="3">Action</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -157,6 +157,7 @@
                                         <td>${serie.ageRestriction}</td>
                                         <td><a href="./detailserie?idserie=${serie.id}">Voir</a></td>
                                         <td><a href="./deleteserie?idserie=${serie.id}">Supprimer</a></td>
+                                        <td><a href="./modifyserie?idserie=${serie.id}">Modifier</a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

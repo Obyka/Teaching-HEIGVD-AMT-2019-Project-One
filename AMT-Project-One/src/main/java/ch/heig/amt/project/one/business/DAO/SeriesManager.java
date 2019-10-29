@@ -78,6 +78,7 @@ public class SeriesManager implements SeriesManagerLocal {
     @Override
     public Serie findById(long id) {
         Serie serie = Serie.builder().build();
+        serie.setId(-1);
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Serie WHERE ID = ?");

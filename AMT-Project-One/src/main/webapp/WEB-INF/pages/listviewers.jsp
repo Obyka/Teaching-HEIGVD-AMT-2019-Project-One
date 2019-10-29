@@ -136,7 +136,7 @@
                                         <th>Nom d'utilisateur</th>
                                         <th>Genre</th>
                                         <th>Date de naissance</th>
-                                        <th colspan="2">Action</th>
+                                        <th colspan="3">Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -150,6 +150,7 @@
                                             <td>${viewer.birthDate}</td>
                                             <td><a href="#">Voir</a></td>
                                             <td><a href="./deleteviewer?idviewer=${viewer.id}">Supprimer</a></td>
+                                            <td><a href="./modifyviewer?idviewer=${viewer.id}">Modifier</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
