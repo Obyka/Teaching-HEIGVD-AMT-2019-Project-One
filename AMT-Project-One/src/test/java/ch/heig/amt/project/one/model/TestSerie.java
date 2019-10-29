@@ -5,23 +5,80 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestSerie {
+    private final String title = "Game of Thrones";
+    private final String genre = "Drama";
+    private final String producer = "HBO";
+    private final int ageRestriction = 16;
+    private final String synopsis = "Jon Snow is badass";
+    private final long id = 25;
+    private final long idOwner = 100;
+
     @Test
-    void itShouldBePossibleToCreateSeries() {
+    void itShouldBePossibleToCreateASerie() {
         Serie got = Serie.builder()
-                .title("Game of Thrones")
-                .genre("Drama")
-                .producer("HBO")
-                .ageRestriction(16)
-                .synopsis("Jon Snow is badass")
+                .title(title)
+                .genre(genre)
+                .producer(producer)
+                .ageRestriction(ageRestriction)
+                .synopsis(synopsis)
                 .build();
-        got.setId(1);
+        got.setId(id);
+        got.setOwner(idOwner);
 
         assertNotNull(got);
-        assertEquals(1, got.getId());
-        assertEquals("Game of Thrones", got.getTitle());
-        assertEquals("Drama", got.getGenre());
-        assertEquals("HBO", got.getProducer());
-        assertEquals(16, got.getAgeRestriction());
-        assertEquals("Jon Snow is badass", got.getSynopsis());
+        assertEquals(id, got.getId());
+        assertEquals(idOwner, got.getOwner());
+        assertEquals(title, got.getTitle());
+        assertEquals(genre, got.getGenre());
+        assertEquals(producer, got.getProducer());
+        assertEquals(ageRestriction, got.getAgeRestriction());
+        assertEquals(synopsis, got.getSynopsis());
+    }
+
+    @Test
+    void itShouldBePossibleToSetASerie() {
+        Serie got = Serie.builder().build();
+
+        got.setId(id);
+        got.setOwner(idOwner);
+        got.setTitle(title);
+        got.setGenre(genre);
+        got.setProducer(producer);
+        got.setAgeRestriction(ageRestriction);
+        got.setSynopsis(synopsis);
+
+        assertNotNull(got);
+        assertEquals(id, got.getId());
+        assertEquals(idOwner, got.getOwner());
+        assertEquals(title, got.getTitle());
+        assertEquals(genre, got.getGenre());
+        assertEquals(producer, got.getProducer());
+        assertEquals(ageRestriction, got.getAgeRestriction());
+        assertEquals(synopsis, got.getSynopsis());
+    }
+
+    @Test
+    void itShouldBePossibleToHaveTwoSeriesEqual() {
+        Serie got = Serie.builder()
+                .title(title)
+                .genre(genre)
+                .producer(producer)
+                .ageRestriction(ageRestriction)
+                .synopsis(synopsis)
+                .build();
+        got.setId(id);
+        got.setOwner(idOwner);
+
+        Serie got2 = Serie.builder()
+                .title(title)
+                .genre(genre)
+                .producer(producer)
+                .ageRestriction(ageRestriction)
+                .synopsis(synopsis)
+                .build();
+        got2.setId(id);
+        got2.setOwner(idOwner);
+
+        assertEquals(true, got.equals(got2));
     }
 }
