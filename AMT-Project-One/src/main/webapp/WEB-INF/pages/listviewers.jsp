@@ -149,7 +149,7 @@
                                             <td>${viewer.genre}</td>
                                             <td>${viewer.birthDate}</td>
                                             <td><a href="#">Voir</a></td>
-                                            <td><a href="${pathToDeleteViewer}?idviewer=${viewer.id}">Supprimer</a></td>
+                                            <td><a href=<c:out value="${pathToDeleteViewer}?idviewer=${viewer.id}"/>>Supprimer</a></td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

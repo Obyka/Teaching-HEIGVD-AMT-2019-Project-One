@@ -146,7 +146,7 @@
                                         <td>${serie.genre}</td>
                                         <td>${serie.producer}</td>
                                         <td>${serie.ageRestriction}</td>
-                                        <td><a href=".${pathToDetailSerie}?idserie=${serie.id}">Voir</a></td>
+                                        <td><a href="${pathToDetailSerie}?idserie=${serie.id}">Voir</a></td>
                                         <td><a href="${pathToDeleteSerie}?idserie=${serie.id}">Supprimer</a></td>
                                     </tr>
                                 </c:forEach>
