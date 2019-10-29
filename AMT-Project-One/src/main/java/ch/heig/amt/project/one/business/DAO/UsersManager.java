@@ -22,11 +22,19 @@ public class UsersManager implements UsersManagerLocal {
     @Override
     public boolean create(String username, String password) {
         boolean created = false;
+        PasswordHash ph = new PasswordHash();
+        String finalHashedPass = "";
+        try {
+            finalHashedPass = ph.createHash(password);
+        } catch (Exception e){
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.UsersManager.class.getName()).log(Level.SEVERE, null, e);
+            return created;
+        }
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO User(Username, Password) VALUES (?,?)");
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, finalHashedPass);
             int row = preparedStatement.executeUpdate();
 
             if(row == 1) {

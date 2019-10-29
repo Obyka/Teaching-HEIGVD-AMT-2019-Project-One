@@ -51,18 +51,10 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if(errors.size() == 0) {
-            PasswordHash ph = new PasswordHash();
-            String finalHashedPass = "";
-            try{
-                finalHashedPass = ph.createHash(password1);
-                boolean createdUser = usersManagerLocal.create(username, password1);
+            boolean createdUser = usersManagerLocal.create(username, password1);
                 if(createdUser) {
                     response.sendRedirect(request.getContextPath() + "/login");
                 }
-            } catch(Exception no){
-                Logger.getLogger(ch.heig.amt.project.one.business.DAO.SeriesManager.class.getName()).log(Level.SEVERE, null, no);
-            }
-
         } else {
             request.setAttribute("errors", errors);
             request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
