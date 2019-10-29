@@ -154,6 +154,10 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                            <a href="./addviewer" class="btn btn-primary">
+                                <span class="text">Ajouter un viewer</span>
+                            </a>
+                            <hr>
                         </div>
                         <div class="pagination">
                             <c:forEach begin="1" end="${nbPage}" var="val">

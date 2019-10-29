@@ -149,7 +149,6 @@ public class SeriesManager implements SeriesManagerLocal {
     }
 
     public int count() {
-        boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
             Statement stmt = connection.createStatement();
