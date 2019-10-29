@@ -56,22 +56,24 @@ public class ModifySerieServlet extends HttpServlet {
             errors.add("Le synopsis ne peut pas être vide");
             errorOccured = true;
         }
+        long idParsed = 0;
+        int iAgeRestriction = 0;
+        try{
+            idParsed = Long.parseLong(id);
+        } catch (Exception e){
+            errors.add("La série demandée n'est pas modifiable");
+            errorOccured = true;
+        }
+        try{
+            iAgeRestriction = Integer.valueOf(ageRestriction);
+        } catch (Exception e){
+            errors.add("La restriction d'âge est invalide.");
+            errorOccured = true;
+        }
 
         if(!errorOccured) {
-            long idParsed = 0;
-            int iAgeRestriction = 0;
-            try{
-                idParsed = Long.parseLong(id);
-                iAgeRestriction = Integer.valueOf(ageRestriction);
-            } catch (Exception e){
-                request.setAttribute("stateOfCreation", "Une donnée est invalide");
-                request.setAttribute("errors", errors);
-                request.getRequestDispatcher("/WEB-INF/pages/modifySerie.jsp").forward(request, response);
-
-            }
-
             Serie serie = seriesManagerLocal.findById(idParsed);
-            if(serie.getOwner() == user.getId()) {
+            if(serie.getOwner() == user.getId() && serie.getId() != -1) {
                 Serie serieUpdated = Serie.builder()
                         .title(titre)
                         .genre(genre)
