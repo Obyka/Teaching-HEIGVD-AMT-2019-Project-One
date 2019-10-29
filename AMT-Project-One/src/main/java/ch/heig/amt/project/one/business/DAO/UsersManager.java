@@ -2,6 +2,7 @@ package ch.heig.amt.project.one.business.DAO;
 
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.utils.PasswordHash;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -21,11 +22,19 @@ public class UsersManager implements UsersManagerLocal {
     @Override
     public boolean create(String username, String password) {
         boolean created = false;
+        PasswordHash ph = new PasswordHash();
+        String finalHashedPass = "";
+        try {
+            finalHashedPass = ph.createHash(password);
+        } catch (Exception e){
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.UsersManager.class.getName()).log(Level.SEVERE, null, e);
+            return created;
+        }
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO User(Username, Password) VALUES (?,?)");
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, finalHashedPass);
             int row = preparedStatement.executeUpdate();
 
             if(row == 1) {
@@ -43,6 +52,7 @@ public class UsersManager implements UsersManagerLocal {
     @Override
     public boolean validConnection(String username, String password) {
         boolean connectionValid = false;
+        PasswordHash ph = new PasswordHash();
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE Username = ?");
@@ -50,10 +60,14 @@ public class UsersManager implements UsersManagerLocal {
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
                 String passwordDB = rs.getString("Password");
-
-                if (passwordDB.equals(password)) {
-                    connectionValid = true;
+                try{
+                    if (ph.validatePassword(password, passwordDB)) {
+                        connectionValid = true;
+                    }
+                } catch(Exception e){
+                    Logger.getLogger(ch.heig.amt.project.one.business.DAO.SeriesManager.class.getName()).log(Level.SEVERE, null, e);
                 }
+
             }
             preparedStatement.close();
             connection.close();
