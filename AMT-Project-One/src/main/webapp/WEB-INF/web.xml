@@ -52,6 +52,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ModifySerieServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifySerieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifySerieServlet</servlet-name>
+    <url-pattern>/restreint/modifyserie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>AddViewerServlet</servlet-name>
     <servlet-class>ch.heig.amt.project.one.presentation.AddViewerServlet</servlet-class>
   </servlet>
