@@ -14,6 +14,28 @@
     <url-pattern>/restreint/*</url-pattern>
   </filter-mapping>
 
+  <filter>
+    <filter-name>LoggedFilter</filter-name>
+    <filter-class>ch.heig.amt.project.one.filter.LoggedFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoggedFilter</filter-name>
+    <url-pattern>/login</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>LoggedFilter</filter-name>
+    <url-pattern>/register</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
