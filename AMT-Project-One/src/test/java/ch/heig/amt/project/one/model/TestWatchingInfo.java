@@ -13,8 +13,7 @@ public class TestWatchingInfo {
     private final long idSerie = 14455;
     private final long idViewer = 47890;
 
-    @Test
-    void itShouldBePossibleToCreateAWatchingInfo() {
+    WatchingInfo HelperCreateWatchingInfo() {
         WatchingInfo watchingInfo = WatchingInfo.builder()
                 .timeSpent(timeSpent)
                 .beginningDate(beginningDate)
@@ -23,12 +22,22 @@ public class TestWatchingInfo {
                 .build();
         watchingInfo.setOwner(idOwner);
 
+        return watchingInfo;
+    }
+
+    void HelperAssertWatchingInfo(WatchingInfo watchingInfo) {
         assertNotNull(watchingInfo);
         assertEquals(idOwner, watchingInfo.getOwner());
         assertEquals(beginningDate, watchingInfo.getBeginningDate());
         assertEquals(timeSpent, watchingInfo.getTimeSpent());
         assertEquals(idSerie, watchingInfo.getIdSerie());
         assertEquals(idViewer, watchingInfo.getIdViewer());
+    }
+
+    @Test
+    void itShouldBePossibleToCreateAWatchingInfo() {
+        WatchingInfo watchingInfo = HelperCreateWatchingInfo();
+        HelperAssertWatchingInfo(watchingInfo);
     }
 
     @Test
@@ -41,31 +50,13 @@ public class TestWatchingInfo {
         watchingInfo.setIdSerie(idSerie);
         watchingInfo.setIdViewer(idViewer);
 
-        assertNotNull(watchingInfo);
-        assertEquals(idOwner, watchingInfo.getOwner());
-        assertEquals(beginningDate, watchingInfo.getBeginningDate());
-        assertEquals(timeSpent, watchingInfo.getTimeSpent());
-        assertEquals(idSerie, watchingInfo.getIdSerie());
-        assertEquals(idViewer, watchingInfo.getIdViewer());
+        HelperAssertWatchingInfo(watchingInfo);
     }
 
     @Test
     void itShouldBePossibleToHaveTwoWatchingInfosEqual() {
-        WatchingInfo watchingInfo = WatchingInfo.builder()
-                .timeSpent(timeSpent)
-                .beginningDate(beginningDate)
-                .idSerie(idSerie)
-                .idViewer(idViewer)
-                .build();
-        watchingInfo.setOwner(idOwner);
-
-        WatchingInfo watchingInfo2 = WatchingInfo.builder()
-                .timeSpent(timeSpent)
-                .beginningDate(beginningDate)
-                .idSerie(idSerie)
-                .idViewer(idViewer)
-                .build();
-        watchingInfo2.setOwner(idOwner);
+        WatchingInfo watchingInfo = HelperCreateWatchingInfo();
+        WatchingInfo watchingInfo2 = HelperCreateWatchingInfo();
 
         assertEquals(true, watchingInfo.equals(watchingInfo2));
     }

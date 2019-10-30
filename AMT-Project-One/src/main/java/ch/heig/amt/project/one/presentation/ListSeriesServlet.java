@@ -18,7 +18,7 @@ public class ListSeriesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int NB_RECORD_PRINT = 50;
+        int NB_RECORD_PRINT = 1;
         User user = ((User)req.getSession().getAttribute("user"));
         String username = user.getUsername();
         int pagetable = 0;
@@ -26,7 +26,7 @@ public class ListSeriesServlet extends HttpServlet {
             pagetable = Integer.valueOf(req.getParameter("pagetable"));
         }
         List<Serie> series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
-        int nbPage = seriesManager.count() / NB_RECORD_PRINT + ((series.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
+        int nbPage = seriesManager.count(user) / NB_RECORD_PRINT + ((series.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
         resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("nbPage", nbPage);
         req.setAttribute("username", username);

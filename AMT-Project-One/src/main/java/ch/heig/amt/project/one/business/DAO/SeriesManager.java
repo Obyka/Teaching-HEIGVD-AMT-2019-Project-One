@@ -149,15 +149,17 @@ public class SeriesManager implements SeriesManagerLocal {
         return deleted;
     }
 
-    public int count() {
+    public int count(User user) {
         try {
             Connection connection = dataSource.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select count(*) from Serie");
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from Serie where OwnerID = ?");
+            preparedStatement.setLong(1, user.getId());
+            ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            stmt.close();
+            int nbRecord = rs.getInt("count(*)");
+            preparedStatement.close();
             connection.close();
-            return rs.getInt("count(*)");
+            return nbRecord;
         } catch (SQLException e) {
             Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
             return -1;

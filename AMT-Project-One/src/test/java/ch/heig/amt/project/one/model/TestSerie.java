@@ -13,26 +13,35 @@ public class TestSerie {
     private final long id = 25;
     private final long idOwner = 100;
 
-    @Test
-    void itShouldBePossibleToCreateASerie() {
-        Serie got = Serie.builder()
+    Serie HelperCreateSerie() {
+        Serie serie = Serie.builder()
                 .title(title)
                 .genre(genre)
                 .producer(producer)
                 .ageRestriction(ageRestriction)
                 .synopsis(synopsis)
                 .build();
-        got.setId(id);
-        got.setOwner(idOwner);
+        serie.setId(id);
+        serie.setOwner(idOwner);
 
-        assertNotNull(got);
-        assertEquals(id, got.getId());
-        assertEquals(idOwner, got.getOwner());
-        assertEquals(title, got.getTitle());
-        assertEquals(genre, got.getGenre());
-        assertEquals(producer, got.getProducer());
-        assertEquals(ageRestriction, got.getAgeRestriction());
-        assertEquals(synopsis, got.getSynopsis());
+        return serie;
+    }
+
+    void HelperAssertSerie(Serie serie) {
+        assertNotNull(serie);
+        assertEquals(id, serie.getId());
+        assertEquals(idOwner, serie.getOwner());
+        assertEquals(title, serie.getTitle());
+        assertEquals(genre, serie.getGenre());
+        assertEquals(producer, serie.getProducer());
+        assertEquals(ageRestriction, serie.getAgeRestriction());
+        assertEquals(synopsis, serie.getSynopsis());
+    }
+    
+    @Test
+    void itShouldBePossibleToCreateASerie() {
+        Serie got = HelperCreateSerie();
+        HelperAssertSerie(got);
     }
 
     @Test
@@ -47,37 +56,13 @@ public class TestSerie {
         got.setAgeRestriction(ageRestriction);
         got.setSynopsis(synopsis);
 
-        assertNotNull(got);
-        assertEquals(id, got.getId());
-        assertEquals(idOwner, got.getOwner());
-        assertEquals(title, got.getTitle());
-        assertEquals(genre, got.getGenre());
-        assertEquals(producer, got.getProducer());
-        assertEquals(ageRestriction, got.getAgeRestriction());
-        assertEquals(synopsis, got.getSynopsis());
+        HelperAssertSerie(got);
     }
 
     @Test
     void itShouldBePossibleToHaveTwoSeriesEqual() {
-        Serie got = Serie.builder()
-                .title(title)
-                .genre(genre)
-                .producer(producer)
-                .ageRestriction(ageRestriction)
-                .synopsis(synopsis)
-                .build();
-        got.setId(id);
-        got.setOwner(idOwner);
-
-        Serie got2 = Serie.builder()
-                .title(title)
-                .genre(genre)
-                .producer(producer)
-                .ageRestriction(ageRestriction)
-                .synopsis(synopsis)
-                .build();
-        got2.setId(id);
-        got2.setOwner(idOwner);
+        Serie got = HelperCreateSerie();
+        Serie got2 = HelperCreateSerie();
 
         assertEquals(true, got.equals(got2));
     }

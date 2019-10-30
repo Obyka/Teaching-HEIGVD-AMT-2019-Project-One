@@ -156,16 +156,18 @@ public class ViewersManager implements ViewersManagerLocal {
         return deleted;
     }
 
-    public int count() {
+    public int count(User user) {
         boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select count(*) from Viewer");
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from Viewer where OwnerID = ?");
+            preparedStatement.setLong(1, user.getId());
+            ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            stmt.close();
+            int nbRecord = rs.getInt("count(*)");
+            preparedStatement.close();
             connection.close();
-            return rs.getInt("count(*)");
+            return nbRecord;
         } catch (SQLException e) {
             Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
             return -1;

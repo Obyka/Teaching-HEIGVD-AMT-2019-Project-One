@@ -9,18 +9,27 @@ public class TestUser {
     private final String password = "admin1234";
     private final long id = 1890000;
 
-    @Test
-    void itShouldBePossibleToCreateAUser() {
+    User HelperCreateUser() {
         User user = User.builder()
-            .username(username)
-            .password(password)
+                .username(username)
+                .password(password)
                 .id(id)
                 .build();
 
+        return user;
+    }
+
+    void HelperAssertUser(User user) {
         assertNotNull(user);
         assertEquals(username, user.getUsername());
         assertEquals(password, user.getPassword());
         assertEquals(id, user.getId());
+    }
+
+    @Test
+    void itShouldBePossibleToCreateAUser() {
+        User user = HelperCreateUser();
+        HelperAssertUser(user);
     }
 
     @Test
@@ -31,25 +40,13 @@ public class TestUser {
         user.setUsername(username);
         user.setPassword(password);
 
-        assertNotNull(user);
-        assertEquals(username, user.getUsername());
-        assertEquals(password, user.getPassword());
-        assertEquals(id, user.getId());
+        HelperAssertUser(user);
     }
 
     @Test
     void itShouldBePossibleToHaveTwoUsersEqual() {
-        User user = User.builder()
-                .id(id)
-                .username(username)
-                .password(password)
-                .build();
-
-        User user2 = User.builder()
-                .id(id)
-                .username(username)
-                .password(password)
-                .build();
+        User user = HelperCreateUser();
+        User user2 = HelperCreateUser();
 
         assertEquals(true, user.equals(user2));
     }

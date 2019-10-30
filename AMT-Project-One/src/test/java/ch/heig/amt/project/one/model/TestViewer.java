@@ -15,8 +15,7 @@ public class TestViewer {
     private final long id = 154;
     private final long idOwner = 8560000;
 
-    @Test
-    void itShouldBePossibleToCreateAViewer() {
+    Viewer HelperCreateViewer() {
         Viewer viewer = Viewer.builder()
                 .firstname(firstname)
                 .lastname(lastname)
@@ -27,6 +26,10 @@ public class TestViewer {
         viewer.setId(id);
         viewer.setOwner(idOwner);
 
+        return viewer;
+    }
+
+    void HelperAssertViewer(Viewer viewer) {
         assertNotNull(viewer);
         assertEquals(id, viewer.getId());
         assertEquals(idOwner, viewer.getOwner());
@@ -35,6 +38,12 @@ public class TestViewer {
         assertEquals(username, viewer.getUsername());
         assertEquals(genre, viewer.getGenre());
         assertEquals(birthdate, viewer.getBirthDate());
+    }
+
+    @Test
+    void itShouldBePossibleToCreateAViewer() {
+        Viewer viewer = HelperCreateViewer();
+        HelperAssertViewer(viewer);
     }
 
     @Test
@@ -49,37 +58,13 @@ public class TestViewer {
         viewer.setGenre(genre);
         viewer.setBirthDate(birthdate);
 
-        assertNotNull(viewer);
-        assertEquals(id, viewer.getId());
-        assertEquals(idOwner, viewer.getOwner());
-        assertEquals(firstname, viewer.getFirstname());
-        assertEquals(lastname, viewer.getLastname());
-        assertEquals(username, viewer.getUsername());
-        assertEquals(genre, viewer.getGenre());
-        assertEquals(birthdate, viewer.getBirthDate());
+        HelperAssertViewer(viewer);
     }
 
     @Test
     void itShouldBePossibleToHaveTwoViewersEqual() {
-        Viewer viewer = Viewer.builder()
-                .firstname(firstname)
-                .lastname(lastname)
-                .username(username)
-                .genre(genre)
-                .birthDate(birthdate)
-                .build();
-        viewer.setId(id);
-        viewer.setOwner(idOwner);
-
-        Viewer viewer2 = Viewer.builder()
-                .firstname(firstname)
-                .lastname(lastname)
-                .username(username)
-                .genre(genre)
-                .birthDate(birthdate)
-                .build();
-        viewer2.setId(id);
-        viewer2.setOwner(idOwner);
+        Viewer viewer = HelperCreateViewer();
+        Viewer viewer2 = HelperCreateViewer();
 
         assertEquals(true, viewer.equals(viewer2));
     }
