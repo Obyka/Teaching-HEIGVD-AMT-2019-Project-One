@@ -8,10 +8,10 @@ import java.util.List;
 
 @Local
 public interface SeriesManagerLocal {
-    public boolean create(Serie s);
-    public List<Serie> findAll(User u, int index, int offset);
-    public Serie findById(long id);
-    public boolean update(Serie s);
-    public boolean delete(long id);
+    public boolean create(Serie serie);
+    public List<Serie> findAll(User user, int index, int offset);
+    public Serie findById(User user, long id);
+    public boolean update(Serie serie);
+    public boolean delete(User user, long id);
     public int count(User user);
 }

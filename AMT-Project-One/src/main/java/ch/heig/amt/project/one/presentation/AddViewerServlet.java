@@ -50,15 +50,17 @@ public class AddViewerServlet extends HttpServlet {
             errors.add("La date de naissance ne peut pas être vide");
         }
 
-        if(errors.size() == 0) {
-            java.util.Date dbirthdate = new Date();
-            try {
-                dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
-            }
-            catch (Exception e) {
-                Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
-            }
+        java.util.Date dbirthdate = new Date();
 
+        try {
+            dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
+        }
+        catch (Exception e) {
+            Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
+            errors.add("La date doit être au format décrit");
+        }
+
+        if(errors.size() == 0) {
             Viewer viewer = Viewer.builder()
                     .firstname(firstname)
                     .lastname(lastname)

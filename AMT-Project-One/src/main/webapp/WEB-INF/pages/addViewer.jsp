@@ -38,13 +38,13 @@
                         </div>
                         <form class="user" method="POST" action="./addviewer">
                             <div class="form-group">
-                                <input type="text" name="firstname" class="form-control form-control-user" placeholder="Prénom">
+                                <input type="text" name="firstname" class="form-control form-control-user" placeholder="Prénom" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="lastname" class="form-control form-control-user" placeholder="Nom">
+                                <input type="text" name="lastname" class="form-control form-control-user" placeholder="Nom" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur">
+                                <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" required="true">
                             </div>
                             <select name="genre">
                                 <option value="Genre" selected>--- Genre ---</option>
@@ -54,7 +54,7 @@
                                 <option value="Androgyne">Androgyne</option>
                             </select>
                             <div class="form-group">
-                                <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd">
+                                <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd" required="true">
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Ajouter"/>
                         </form>

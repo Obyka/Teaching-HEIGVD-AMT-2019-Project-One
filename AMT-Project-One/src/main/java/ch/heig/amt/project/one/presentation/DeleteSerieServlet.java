@@ -1,6 +1,7 @@
 package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
+import ch.heig.amt.project.one.model.User;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,9 +22,10 @@ public class DeleteSerieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sIdSerie = request.getParameter("idserie");
+        User user = (User)request.getSession().getAttribute("user");
         if(sIdSerie != null) {
             long idserie = Long.valueOf(sIdSerie);
-            seriesManagerLocal.delete(idserie);
+            boolean deleted = seriesManagerLocal.delete(user, idserie);
         }
 
         response.sendRedirect(request.getContextPath() + "/restreint/series");

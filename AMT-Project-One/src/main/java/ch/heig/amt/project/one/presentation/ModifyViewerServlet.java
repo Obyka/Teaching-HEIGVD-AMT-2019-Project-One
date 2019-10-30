@@ -63,12 +63,13 @@ public class ModifyViewerServlet extends HttpServlet {
         }
 
         if(errors.size() == 0) {
-            Viewer viewer = viewersManagerLocal.findById(idParsed);
+            Viewer viewer = viewersManagerLocal.findById(user, idParsed);
             if(viewer.getOwner() == user.getId() && viewer.getId() != -1) {
                 java.util.Date dbirthdate = new Date();
                 try {
                     dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
                 } catch (Exception e) {
+                    errors.add("La date doit être au bon format");
                     Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
                 }
 
@@ -98,9 +99,10 @@ public class ModifyViewerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sIDViewer = request.getParameter("idviewer");
+        User user = (User)request.getSession().getAttribute("user");
         if(sIDViewer != null) {
             long idviewer = Long.valueOf(sIDViewer);
-            Viewer viewer = viewersManagerLocal.findById(idviewer);
+            Viewer viewer = viewersManagerLocal.findById(user, idviewer);
             request.setAttribute("viewer", viewer);
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/WEB-INF/pages/modifyViewer.jsp").forward(request, response);

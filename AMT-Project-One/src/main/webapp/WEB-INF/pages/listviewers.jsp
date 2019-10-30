@@ -119,6 +119,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
+                <c:if test="${internError == null}">
                 <h1 class="h3 mb-2 text-gray-800">Viewers</h1>
                 <p class="mb-4"></p>
                 <!-- DataTales Example -->
@@ -167,6 +168,10 @@
                         </div>
                     </div>
                 </div>
+                </c:if>
+                <c:if test="${internError != null}">
+                    <h3>${internError}</h3>
+                </c:if>
             </div>
             <!-- /.container-fluid -->
         </div>

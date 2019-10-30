@@ -1,6 +1,7 @@
 package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.ViewersManagerLocal;
+import ch.heig.amt.project.one.model.User;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,10 +23,10 @@ public class DeleteViewerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sIdViewer = request.getParameter("idviewer");
-
+        User user = (User)request.getSession().getAttribute("user");
         if(sIdViewer != null) {
             long idviewer = Long.valueOf(sIdViewer);
-            viewersManagerLocal.delete(idviewer);
+            boolean deleted = viewersManagerLocal.delete(user, idviewer);
         }
 
         response.sendRedirect(request.getContextPath() + "/viewers");
