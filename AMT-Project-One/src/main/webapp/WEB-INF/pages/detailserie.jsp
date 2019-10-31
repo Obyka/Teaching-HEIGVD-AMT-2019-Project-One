@@ -118,6 +118,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <c:if test="${internError == null}">
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">${serie.title}</h1>
                 <p class="mb-4">${serie.synopsis}</p>
@@ -161,6 +162,10 @@
                             <a href="./detailserie?pagetable=9">10</a>
                         </div>
                     </div>
+                    </c:if>
+                    <c:if test="${internError != null}">
+                        <h3>${internError}</h3>
+                    </c:if>
                 </div>
             </div>
             <!-- /.container-fluid -->

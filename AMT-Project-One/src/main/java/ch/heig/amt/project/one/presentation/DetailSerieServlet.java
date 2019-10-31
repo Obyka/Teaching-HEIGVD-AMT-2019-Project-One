@@ -34,29 +34,54 @@ public class DetailSerieServlet extends HttpServlet {
         super.doPost(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int NB_RECORD_PRINT = 50;
-
+        String internError = null;
         User user = (User)request.getSession().getAttribute("user");
         String sIdSerie = request.getParameter("idserie");
         int pagetable = 0;
+        long idserie = 0;
+
         if(request.getParameter("pagetable") != null) {
-            pagetable = Integer.valueOf(request.getParameter("pagetable"));
+            try {
+                pagetable = Integer.valueOf(request.getParameter("pagetable"));
+            } catch(NumberFormatException nb) {
+                internError = "L'index du tableau doit être un entier";
+            }
         }
         if(sIdSerie != null) {
-            long idserie = Long.valueOf(sIdSerie);
-            Serie serie = seriesManagerLocal.findById(idserie);
-            List<WatchingInfo> watchingInfoList = watchingInfosManagerLocal.findBySerie(user, serie, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
-            List<Pair<String, WatchingInfo>> viewersInfo = new ArrayList<>();
-            for(WatchingInfo w : watchingInfoList) {
-                Viewer v = viewersManagerLocal.findById(w.getIdViewer());
-                Pair<String, WatchingInfo> pair = new Pair<>(v.getUsername(), w);
-                viewersInfo.add(pair);
+            try {
+                idserie = Long.valueOf(sIdSerie);
+            } catch(NumberFormatException e) {
+                internError = "L'id de la série n'est pas correcte";
             }
+
+            Serie serie = seriesManagerLocal.findById(user, idserie);
+            if(serie.getId() != -1) {
+                List<WatchingInfo> watchingInfoList = watchingInfosManagerLocal.findBySerie(user, serie, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
+                if(watchingInfoList.size() > 0) {
+                    List<Pair<String, WatchingInfo>> viewersInfo = new ArrayList<>();
+                    for(WatchingInfo w : watchingInfoList) {
+                        Viewer viewer = viewersManagerLocal.findById(user, w.getIdViewer());
+                        if(viewer.getId() != -1) {
+                            Pair<String, WatchingInfo> pair = new Pair<>(viewer.getUsername(), w);
+                            viewersInfo.add(pair);
+                        }
+                    }
+                    request.setAttribute("username", user.getUsername());
+                    request.setAttribute("serie", serie);
+                    request.setAttribute("viewersInfos", viewersInfo);
+                }
+                else {
+                    internError = "Il n'y a pas d'informations de visionnage pour cette série";
+                }
+            }
+            else {
+                internError = "La série est introuvable";
+            }
+            request.setAttribute("internError", internError);
             response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("username", user.getUsername());
-            request.setAttribute("serie", serie);
-            request.setAttribute("viewersInfos", viewersInfo);
             request.getRequestDispatcher("/WEB-INF/pages/detailserie.jsp").forward(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/restreint/series");

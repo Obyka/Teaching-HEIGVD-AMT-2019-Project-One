@@ -8,11 +8,11 @@ import java.util.List;
 
 @Local
 public interface ViewersManagerLocal {
-    public boolean create(Viewer v);
-    public List<Viewer> findAll(User u, int index, int offset);
-    public Viewer findById(long id);
-    public boolean update(Viewer v);
-    public boolean delete(long id);
+    public boolean create(Viewer viewer);
+    public List<Viewer> findAll(User user, int index, int offset);
+    public Viewer findById(User user, long id);
+    public boolean update(Viewer viewer);
+    public boolean delete(User user, long id);
     public int count(User user);
 
     }

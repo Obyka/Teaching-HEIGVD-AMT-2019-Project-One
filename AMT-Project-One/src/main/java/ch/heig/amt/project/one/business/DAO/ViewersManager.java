@@ -19,20 +19,20 @@ public class ViewersManager implements ViewersManagerLocal {
     private DataSource dataSource;
 
     @Override
-    public boolean create(Viewer v) {
+    public boolean create(Viewer viewer) {
         boolean created = false;
         try {
             Connection connection = dataSource.getConnection();
             String querySql = "INSERT INTO Viewer(Firstname, Lastname, Username, Genre, Birthdate, OwnerID) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(querySql);
-            preparedStatement.setString(1, v.getFirstname());
-            preparedStatement.setString(2, v.getLastname());
-            preparedStatement.setString(3, v.getUsername());
-            preparedStatement.setString(4, v.getGenre());
-            java.util.Date dateViewer = v.getBirthDate();
+            preparedStatement.setString(1, viewer.getFirstname());
+            preparedStatement.setString(2, viewer.getLastname());
+            preparedStatement.setString(3, viewer.getUsername());
+            preparedStatement.setString(4, viewer.getGenre());
+            java.util.Date dateViewer = viewer.getBirthDate();
             java.sql.Date dateViewerDB = new java.sql.Date(dateViewer.getTime());
             preparedStatement.setDate(5, dateViewerDB);
-            preparedStatement.setLong(6, v.getOwner());
+            preparedStatement.setLong(6, viewer.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 created = true;
@@ -47,12 +47,12 @@ public class ViewersManager implements ViewersManagerLocal {
     }
 
     @Override
-    public List<Viewer> findAll(User u, int index, int offset) {
+    public List<Viewer> findAll(User user, int index, int offset) {
         List<Viewer> viewers = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Viewer WHERE OwnerID = ? LIMIT ?, ?");
-            preparedStatement.setLong(1, u.getId());
+            preparedStatement.setLong(1, user.getId());
             preparedStatement.setInt(2, index);
             preparedStatement.setInt(3, offset);
             ResultSet rs = preparedStatement.executeQuery();
@@ -79,13 +79,14 @@ public class ViewersManager implements ViewersManagerLocal {
     }
 
     @Override
-    public Viewer findById(long id) {
+    public Viewer findById(User user, long id) {
         Viewer viewer = Viewer.builder().build();
         viewer.setId(-1);
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Viewer WHERE ID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Viewer WHERE ID = ? AND OwnerID = ?");
             preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, user.getId());
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
                 long idDb = rs.getLong("ID");
@@ -109,20 +110,21 @@ public class ViewersManager implements ViewersManagerLocal {
     }
 
     @Override
-    public boolean update(Viewer v) {
+    public boolean update(Viewer viewer) {
         boolean updated = false;
         try {
             Connection connection = dataSource.getConnection();
-            String querySql = "UPDATE Viewer SET Firstname = ?, Lastname = ?, Username = ?, Genre = ?, Birthdate = ? WHERE ID = ?";
+            String querySql = "UPDATE Viewer SET Firstname = ?, Lastname = ?, Username = ?, Genre = ?, Birthdate = ? WHERE ID = ? AND OwnerID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(querySql);
-            preparedStatement.setString(1, v.getFirstname());
-            preparedStatement.setString(2, v.getLastname());
-            preparedStatement.setString(3, v.getUsername());
-            preparedStatement.setString(4, v.getGenre());
-            java.util.Date dateViewer = v.getBirthDate();
+            preparedStatement.setString(1, viewer.getFirstname());
+            preparedStatement.setString(2, viewer.getLastname());
+            preparedStatement.setString(3, viewer.getUsername());
+            preparedStatement.setString(4, viewer.getGenre());
+            java.util.Date dateViewer = viewer.getBirthDate();
             java.sql.Date dateViewerDB = new java.sql.Date(dateViewer.getTime());
             preparedStatement.setDate(5, dateViewerDB);
-            preparedStatement.setLong(6, v.getId());
+            preparedStatement.setLong(6, viewer.getId());
+            preparedStatement.setLong(7, viewer.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 updated = true;
@@ -138,12 +140,13 @@ public class ViewersManager implements ViewersManagerLocal {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(User user, long id) {
         boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Viewer WHERE ID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Viewer WHERE ID = ? AND OwnerID = ?");
             preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, user.getId());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 deleted = true;
@@ -157,7 +160,6 @@ public class ViewersManager implements ViewersManagerLocal {
     }
 
     public int count(User user) {
-        boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from Viewer where OwnerID = ?");

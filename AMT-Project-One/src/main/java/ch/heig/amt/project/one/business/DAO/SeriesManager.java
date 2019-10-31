@@ -19,18 +19,18 @@ public class SeriesManager implements SeriesManagerLocal {
     private DataSource dataSource;
 
     @Override
-    public boolean create(Serie s) {
+    public boolean create(Serie serie) {
         boolean created = false;
         try {
             Connection connection = dataSource.getConnection();
             String querySql = "INSERT INTO Serie(Title, Producer, Synopsis, Genre, AgeRestriction, OwnerID) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(querySql);
-            preparedStatement.setString(1, s.getTitle());
-            preparedStatement.setString(2, s.getProducer());
-            preparedStatement.setString(3, s.getSynopsis());
-            preparedStatement.setString(4, s.getGenre());
-            preparedStatement.setInt(5, s.getAgeRestriction());
-            preparedStatement.setLong(6, s.getOwner());
+            preparedStatement.setString(1, serie.getTitle());
+            preparedStatement.setString(2, serie.getProducer());
+            preparedStatement.setString(3, serie.getSynopsis());
+            preparedStatement.setString(4, serie.getGenre());
+            preparedStatement.setInt(5, serie.getAgeRestriction());
+            preparedStatement.setLong(6, serie.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 created = true;
@@ -45,12 +45,12 @@ public class SeriesManager implements SeriesManagerLocal {
     }
 
     @Override
-    public List<Serie> findAll(User u, int index, int offset) {
+    public List<Serie> findAll(User user, int index, int offset) {
         List<Serie> series = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Serie WHERE OwnerID = ? LIMIT ?, ?");
-            preparedStatement.setLong(1, u.getId());
+            preparedStatement.setLong(1, user.getId());
             preparedStatement.setInt(2, index);
             preparedStatement.setInt(3, offset);
             ResultSet rs = preparedStatement.executeQuery();
@@ -76,13 +76,14 @@ public class SeriesManager implements SeriesManagerLocal {
     }
 
     @Override
-    public Serie findById(long id) {
+    public Serie findById(User user, long id) {
         Serie serie = Serie.builder().build();
         serie.setId(-1);
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Serie WHERE ID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Serie WHERE ID = ? AND OwnerID = ?");
             preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, user.getId());
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
                 long idSerie = rs.getLong("ID");
@@ -105,18 +106,19 @@ public class SeriesManager implements SeriesManagerLocal {
     }
 
     @Override
-    public boolean update(Serie s) {
+    public boolean update(Serie serie) {
         boolean modified = false;
         try {
             Connection connection = dataSource.getConnection();
-            String querySql = "UPDATE Serie SET Title = ?, Producer = ?, Synopsis = ?, Genre = ?, AgeRestriction = ? WHERE ID = ?";
+            String querySql = "UPDATE Serie SET Title = ?, Producer = ?, Synopsis = ?, Genre = ?, AgeRestriction = ? WHERE ID = ? AND OwnerID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(querySql);
-            preparedStatement.setString(1, s.getTitle());
-            preparedStatement.setString(2, s.getProducer());
-            preparedStatement.setString(3, s.getSynopsis());
-            preparedStatement.setString(4, s.getGenre());
-            preparedStatement.setInt(5, s.getAgeRestriction());
-            preparedStatement.setLong(6, s.getId());
+            preparedStatement.setString(1, serie.getTitle());
+            preparedStatement.setString(2, serie.getProducer());
+            preparedStatement.setString(3, serie.getSynopsis());
+            preparedStatement.setString(4, serie.getGenre());
+            preparedStatement.setInt(5, serie.getAgeRestriction());
+            preparedStatement.setLong(6, serie.getId());
+            preparedStatement.setLong(7, serie.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 modified = true;
@@ -131,12 +133,13 @@ public class SeriesManager implements SeriesManagerLocal {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(User user, long id) {
         boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Serie WHERE ID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Serie WHERE ID = ? AND OwnerID = ?");
             preparedStatement.setLong(1, id);
+            preparedStatement.setLong(2, user.getId());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 deleted = true;
@@ -152,7 +155,7 @@ public class SeriesManager implements SeriesManagerLocal {
     public int count(User user) {
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from Serie where OwnerID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(*) FROM Serie WHERE OwnerID = ?");
             preparedStatement.setLong(1, user.getId());
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();

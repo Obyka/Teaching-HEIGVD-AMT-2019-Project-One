@@ -38,19 +38,19 @@
                         </div>
                         <form class="user" method="POST" action="./addserie">
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control form-control-user" placeholder="Titre">
+                                <input type="text" name="title" class="form-control form-control-user" placeholder="Titre" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="genre" class="form-control form-control-user" placeholder="Genre">
+                                <input type="text" name="genre" class="form-control form-control-user" placeholder="Genre" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="producer" class="form-control form-control-user" placeholder="Producteur">
+                                <input type="text" name="producer" class="form-control form-control-user" placeholder="Producteur" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="ageRestriction" class="form-control form-control-user" placeholder="Restriction d'âge">
+                                <input type="text" name="ageRestriction" class="form-control form-control-user" placeholder="Restriction d'âge" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="synopsis" class="form-control form-control-user" placeholder="Synopsis">
+                                <input type="text" name="synopsis" class="form-control form-control-user" placeholder="Synopsis" required="true">
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Ajouter"/>
                         </form>

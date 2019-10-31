@@ -8,6 +8,7 @@ import ch.heig.amt.project.one.model.WatchingInfo;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.jws.soap.SOAPBinding;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,18 +25,18 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     private DataSource dataSource;
 
     @Override
-    public boolean create(WatchingInfo w) {
+    public boolean create(WatchingInfo watchingInfo) {
         boolean created = false;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO WatchingInfo(IDSerie, IDViewer, TimeSpent, BeginningDate, OwnerID) VALUES (?, ?, ?, ?, ?)");
-            preparedStatement.setLong(1, w.getIdSerie());
-            preparedStatement.setLong(2, w.getIdViewer());
-            preparedStatement.setInt(3, w.getTimeSpent());
-            java.util.Date dateWatchingInfo = w.getBeginningDate();
+            preparedStatement.setLong(1, watchingInfo.getIdSerie());
+            preparedStatement.setLong(2, watchingInfo.getIdViewer());
+            preparedStatement.setInt(3, watchingInfo.getTimeSpent());
+            java.util.Date dateWatchingInfo = watchingInfo.getBeginningDate();
             java.sql.Date dateWatchingInfoDB = new java.sql.Date(dateWatchingInfo.getTime());
             preparedStatement.setDate(4, dateWatchingInfoDB);
-            preparedStatement.setLong(5, w.getOwner());
+            preparedStatement.setLong(5, watchingInfo.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 created = true;
@@ -49,13 +50,13 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     }
 
     @Override
-    public List<WatchingInfo> findByViewer(User u, Viewer viewer, int index, int offset) {
+    public List<WatchingInfo> findByViewer(User user, Viewer viewer, int index, int offset) {
         List<WatchingInfo> watchingInfos = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDViewer = ? AND OwnerID = ?");
             preparedStatement.setLong(1, viewer.getId());
-            preparedStatement.setLong(2, u.getId());
+            preparedStatement.setLong(2, user.getId());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 long idSerie = rs.getLong("IDSerie");
@@ -77,13 +78,13 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     }
 
     @Override
-    public List<WatchingInfo> findBySerie(User u, Serie serie, int index, int offset) {
+    public List<WatchingInfo> findBySerie(User user, Serie serie, int index, int offset) {
         List<WatchingInfo> watchingInfos = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDSerie = ? AND OwnerID = ?");
             preparedStatement.setLong(1, serie.getId());
-            preparedStatement.setLong(2, u.getId());
+            preparedStatement.setLong(2, user.getId());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 long idSerie = rs.getLong("IDSerie");
@@ -105,12 +106,13 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     }
 
     @Override
-    public WatchingInfo findOne(User u, long idSerie, long idViewer) {
+    public WatchingInfo findOne(User user, long idSerie, long idViewer) {
         WatchingInfo watchingInfo = WatchingInfo.builder().build();
+        watchingInfo.setId(-1);
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE OwnerID = ? AND IDSerie = ? AND IDViewer = ?");
-            preparedStatement.setLong(1, u.getId());
+            preparedStatement.setLong(1, user.getId());
             preparedStatement.setLong(2, idSerie);
             preparedStatement.setLong(3, idViewer);
             ResultSet rs = preparedStatement.executeQuery();
@@ -133,18 +135,18 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     }
 
     @Override
-    public boolean update(WatchingInfo w) {
+    public boolean update(WatchingInfo watchingInfo) {
         boolean updated = false;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE WatchingInfo SET TimeSpent = ?, BeginningDate = ? WHERE IDSerie = ? AND IDViewer = ? AND OwnerID = ?");
-            preparedStatement.setInt(1, w.getTimeSpent());
-            java.util.Date dateWatchingInfo = w.getBeginningDate();
+            preparedStatement.setInt(1, watchingInfo.getTimeSpent());
+            java.util.Date dateWatchingInfo = watchingInfo.getBeginningDate();
             java.sql.Date dateWatchingInfoDB = new java.sql.Date(dateWatchingInfo.getTime());
             preparedStatement.setDate(2, dateWatchingInfoDB);
-            preparedStatement.setLong(3, w.getIdSerie());
-            preparedStatement.setLong(4, w.getIdViewer());
-            preparedStatement.setLong(5, w.getOwner());
+            preparedStatement.setLong(3, watchingInfo.getIdSerie());
+            preparedStatement.setLong(4, watchingInfo.getIdViewer());
+            preparedStatement.setLong(5, watchingInfo.getOwner());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 updated = true;
@@ -158,13 +160,14 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
     }
 
     @Override
-    public boolean delete(long idSerie, long idViewer) {
+    public boolean delete(User user, long idSerie, long idViewer) {
         boolean deleted = false;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM WatchingInfo WHERE IDSerie = ? AND IDViewer = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM WatchingInfo WHERE IDSerie = ? AND IDViewer = ? AND OwnerID = ?");
             preparedStatement.setLong(1, idSerie);
             preparedStatement.setLong(2, idViewer);
+            preparedStatement.setLong(3, user.getId());
             int row = preparedStatement.executeUpdate();
             if(row == 1) {
                 deleted = true;

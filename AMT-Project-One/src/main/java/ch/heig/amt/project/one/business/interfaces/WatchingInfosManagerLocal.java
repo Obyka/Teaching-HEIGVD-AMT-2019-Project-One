@@ -10,10 +10,10 @@ import java.util.List;
 
 @Local
 public interface WatchingInfosManagerLocal {
-    public boolean create(WatchingInfo w);
-    public List<WatchingInfo> findByViewer(User u, Viewer viewer, int index, int offset);
-    public List<WatchingInfo> findBySerie(User u, Serie serie, int index, int offset);
-    public WatchingInfo findOne(User u, long idSerie, long idViewer);
-    public boolean update(WatchingInfo w);
-    public boolean delete(long idSerie, long idViewer);
+    public boolean create(WatchingInfo watchingInfo);
+    public List<WatchingInfo> findByViewer(User user, Viewer viewer, int index, int offset);
+    public List<WatchingInfo> findBySerie(User user, Serie serie, int index, int offset);
+    public WatchingInfo findOne(User user, long idSerie, long idViewer);
+    public boolean update(WatchingInfo watchingInfo);
+    public boolean delete(User User, long idSerie, long idViewer);
 }

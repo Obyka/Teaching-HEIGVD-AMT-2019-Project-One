@@ -72,7 +72,7 @@ public class ModifySerieServlet extends HttpServlet {
         }
 
         if(!errorOccured) {
-            Serie serie = seriesManagerLocal.findById(idParsed);
+            Serie serie = seriesManagerLocal.findById(user, idParsed);
             if(serie.getOwner() == user.getId() && serie.getId() != -1) {
                 Serie serieUpdated = Serie.builder()
                         .title(titre)
@@ -100,9 +100,10 @@ public class ModifySerieServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sIdSerie = request.getParameter("idserie");
+        User user = ((User)request.getSession().getAttribute("user"));
         if(sIdSerie != null) {
             long idserie = Long.valueOf(sIdSerie);
-            Serie serie = seriesManagerLocal.findById(idserie);
+            Serie serie = seriesManagerLocal.findById(user, idserie);
             request.setAttribute("serie", serie);
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/WEB-INF/pages/modifySerie.jsp").forward(request, response);

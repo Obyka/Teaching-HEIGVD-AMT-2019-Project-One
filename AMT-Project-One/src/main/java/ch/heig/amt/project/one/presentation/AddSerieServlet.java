@@ -44,8 +44,15 @@ public class AddSerieServlet extends HttpServlet {
             errors.add("Le synopsis ne peut pas être vide");
         }
 
+        int iAgeRestriction = 0;
+
+        try {
+            iAgeRestriction = Integer.valueOf(ageRestriction);
+        } catch (NumberFormatException e) {
+            errors.add("L'âge doit être entier");
+        }
+
         if(errors.size() == 0) {
-            int iAgeRestriction = Integer.valueOf(ageRestriction);
             Serie serie = Serie.builder()
                     .title(titre)
                     .genre(genre)

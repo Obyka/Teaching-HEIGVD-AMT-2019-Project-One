@@ -127,6 +127,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <c:if test="${interError == null}">
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Series</h1>
                 <p class="mb-4"></p>
@@ -175,6 +176,10 @@
                         </div>
                     </div>
                 </div>
+                </c:if>
+                <c:if test="${internError != null}">
+                    <h3>${internError}</h3>
+                </c:if>
             </div>
             <!-- /.container-fluid -->
         </div>
