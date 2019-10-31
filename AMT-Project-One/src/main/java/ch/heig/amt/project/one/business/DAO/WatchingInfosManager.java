@@ -82,9 +82,12 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
         List<WatchingInfo> watchingInfos = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDSerie = ? AND OwnerID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDSerie = ? AND OwnerID = ? LIMIT ?, ?");
             preparedStatement.setLong(1, serie.getId());
             preparedStatement.setLong(2, user.getId());
+            preparedStatement.setLong(3, index);
+            preparedStatement.setLong(4, offset);
+
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 long idSerie = rs.getLong("IDSerie");
