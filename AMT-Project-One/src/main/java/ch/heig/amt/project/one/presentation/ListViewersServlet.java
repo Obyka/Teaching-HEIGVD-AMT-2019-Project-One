@@ -44,7 +44,7 @@ public class ListViewersServlet extends HttpServlet {
             request.setAttribute("viewers", viewers);
         }
         else {
-            internError = "Aucun viewer a été créee";
+            internError = "Aucun viewer";
         }
 
         response.setContentType("text/html;charset=UTF-8");

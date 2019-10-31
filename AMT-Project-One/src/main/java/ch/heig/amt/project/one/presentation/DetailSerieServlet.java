@@ -36,7 +36,7 @@ public class DetailSerieServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int NB_RECORD_PRINT = 50;
+        int NB_RECORD_PRINT = 1;
         String internError = null;
         User user = (User)request.getSession().getAttribute("user");
         String sIdSerie = request.getParameter("idserie");
@@ -57,6 +57,9 @@ public class DetailSerieServlet extends HttpServlet {
                 internError = "L'id de la série n'est pas correcte";
             }
 
+            int nbWI = watchingInfosManagerLocal.countBySerie(user,idserie);
+            int nbPage = nbWI / NB_RECORD_PRINT + ((nbWI % NB_RECORD_PRINT == 0) ? 0 : 1);
+
             Serie serie = seriesManagerLocal.findById(user, idserie);
             if(serie.getId() != -1) {
                 List<WatchingInfo> watchingInfoList = watchingInfosManagerLocal.findBySerie(user, serie, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
@@ -72,6 +75,8 @@ public class DetailSerieServlet extends HttpServlet {
                     request.setAttribute("username", user.getUsername());
                     request.setAttribute("serie", serie);
                     request.setAttribute("viewersInfos", viewersInfo);
+                    request.setAttribute("nbPage", nbPage);
+
                 }
                 else {
                     internError = "Il n'y a pas d'informations de visionnage pour cette série";

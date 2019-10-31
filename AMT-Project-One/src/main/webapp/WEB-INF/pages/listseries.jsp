@@ -81,8 +81,7 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                     <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
                         <!-- Dropdown - Messages -->
@@ -90,9 +89,7 @@
                              aria-labelledby="searchDropdown">
                             <form class="form-inline mr-auto w-100 navbar-search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="button">
                                             <i class="fas fa-search fa-sm"></i>
@@ -127,7 +124,6 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <c:if test="${interError == null}">
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Series</h1>
                 <p class="mb-4"></p>
@@ -166,6 +162,9 @@
                             <a href="./addserie" class="btn btn-primary">
                                 <span class="text">Ajouter une série</span>
                             </a>
+                            <a href="./addwatchinginfo" class="btn btn-primary">
+                                <span class="text">Ajouter un profil de visionnage</span>
+                            </a>
                             <hr>
                         </div>
                         <div class="pagination">
@@ -176,10 +175,6 @@
                         </div>
                     </div>
                 </div>
-                </c:if>
-                <c:if test="${internError != null}">
-                    <h3>${internError}</h3>
-                </c:if>
             </div>
             <!-- /.container-fluid -->
         </div>

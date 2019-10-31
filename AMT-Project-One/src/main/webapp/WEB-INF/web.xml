@@ -74,6 +74,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>AddWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.AddWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/addwatchinginfo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>ModifySerieServlet</servlet-name>
     <servlet-class>ch.heig.amt.project.one.presentation.ModifySerieServlet</servlet-class>
   </servlet>

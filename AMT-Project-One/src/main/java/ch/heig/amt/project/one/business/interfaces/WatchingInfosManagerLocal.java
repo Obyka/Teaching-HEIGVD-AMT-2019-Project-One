@@ -16,4 +16,6 @@ public interface WatchingInfosManagerLocal {
     public WatchingInfo findOne(User user, long idSerie, long idViewer);
     public boolean update(WatchingInfo watchingInfo);
     public boolean delete(User User, long idSerie, long idViewer);
+    public int count(User user);
+    public int countBySerie(User user, long IDSerie);
 }

@@ -179,4 +179,39 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
         }
         return deleted;
     }
+
+    public int count(User user) {
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from WatchingInfo where OwnerID = ?");
+            preparedStatement.setLong(1, user.getId());
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            int nbRecord = rs.getInt("count(*)");
+            preparedStatement.close();
+            connection.close();
+            return nbRecord;
+        } catch (SQLException e) {
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
+            return -1;
+        }
+    }
+
+    public int countBySerie(User user, long IDSerie){
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from WatchingInfo where OwnerID = ? AND IDSerie = ?");
+            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(2, IDSerie);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            int nbRecord = rs.getInt("count(*)");
+            preparedStatement.close();
+            connection.close();
+            return nbRecord;
+        } catch (SQLException e) {
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
+            return -1;
+        }
+    }
 }

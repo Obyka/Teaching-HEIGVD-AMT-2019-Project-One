@@ -40,13 +40,13 @@
                             <input type="text" name="id" hidden="true" value="${viewer.id}">
 
                             <div class="form-group">
-                                <input type="text" name="firstname" class="form-control form-control-user" placeholder="Prénom" value="${viewer.firstname}">
+                                <input type="text" name="firstname" class="form-control form-control-user" placeholder="Prénom" value="${viewer.firstname}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="lastname" class="form-control form-control-user" placeholder="Nomv" value="${viewer.lastname}">
+                                <input type="text" name="lastname" class="form-control form-control-user" placeholder="Nomv" value="${viewer.lastname}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" value="${viewer.username}">
+                                <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" value="${viewer.username}"required="true">
                             </div>
                             <select name="genre">
                                 <option value="Genre" selected>--- Genre ---</option>
@@ -55,7 +55,7 @@
                                 <option value="Autre">Autre</option>
                             </select>
                             <div class="form-group">
-                                <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd" value="${viewer.birthDate}">
+                                <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd" value="${viewer.birthDate}" required="true">
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Modifier"/>
                         </form>

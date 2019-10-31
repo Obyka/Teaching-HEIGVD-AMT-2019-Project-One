@@ -40,19 +40,19 @@
                             <input type="text" name="id" hidden="true" value="${serie.id}">
 
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control form-control-user" placeholder="Titre" value="${serie.title}">
+                                <input type="text" name="title" class="form-control form-control-user" placeholder="Titre" value="${serie.title}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="genre" class="form-control form-control-user" placeholder="Genre" value="${serie.genre}">
+                                <input type="text" name="genre" class="form-control form-control-user" placeholder="Genre" value="${serie.genre}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="producer" class="form-control form-control-user" placeholder="Producteur" value="${serie.producer}">
+                                <input type="text" name="producer" class="form-control form-control-user" placeholder="Producteur" value="${serie.producer}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="ageRestriction" class="form-control form-control-user" placeholder="Restriction d'âge" value="${serie.ageRestriction}">
+                                <input type="text" name="ageRestriction" class="form-control form-control-user" placeholder="Restriction d'âge" value="${serie.ageRestriction}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="synopsis" class="form-control form-control-user" placeholder="Synopsis" value="${serie.synopsis}">
+                                <input type="text" name="synopsis" class="form-control form-control-user" placeholder="Synopsis" value="${serie.synopsis}" required="true">
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Modifer"/>
                         </form>

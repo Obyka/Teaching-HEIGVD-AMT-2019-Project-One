@@ -2,8 +2,11 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.DAO.WatchingInfosManager;
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
+import ch.heig.amt.project.one.business.interfaces.ViewersManagerLocal;
 import ch.heig.amt.project.one.business.interfaces.WatchingInfosManagerLocal;
+import ch.heig.amt.project.one.model.Serie;
 import ch.heig.amt.project.one.model.User;
+import ch.heig.amt.project.one.model.Viewer;
 import ch.heig.amt.project.one.model.WatchingInfo;
 
 import javax.ejb.EJB;
@@ -12,13 +15,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddWatchingInfoServlet extends HttpServlet {
     @EJB
     private WatchingInfosManagerLocal watchingInfosManagerLocal;
+
+    @EJB
+    private SeriesManagerLocal seriesManagerLocal;
+
+    @EJB
+    private ViewersManagerLocal viewersManagerLocal;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,11 +39,9 @@ public class AddWatchingInfoServlet extends HttpServlet {
         String IDViewer = request.getParameter("idviewer");
         String TimeSpent = request.getParameter("timespent");
         String BeginningDate = request.getParameter("beginningdate");
-        String OwnerID = request.getParameter("ownerid");
 
         long lIDSerie = 0;
         long lIDViewer = 0;
-        long lIDOwner = 0;
         int lTimeSpent = 0;
         Date dBeggingDate = new Date();
 
@@ -66,30 +76,20 @@ public class AddWatchingInfoServlet extends HttpServlet {
             errors.add("Temps invalide");
         }
 
-        if (OwnerID == null || OwnerID.trim().equals("")) {
-            errors.add("Le propriétaire ne peut pas être vide");
-        }
+        java.util.Date dbirthdate = new Date();
 
-        try{
-            lIDOwner = Long.valueOf(OwnerID);
-        }catch (Exception e){
-            errors.add("Propriétaire invalide");
+        try {
+            dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(BeginningDate);
         }
-
-        if (BeginningDate == null || BeginningDate.trim().equals("")) {
-            errors.add("La date de départ ne peut pas être vide");
-        }
-
-        try{
-            dBeggingDate = new Date(BeginningDate);
-        } catch (Exception e){
-            errors.add("Date invalide");
+        catch (Exception e) {
+            Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
+            errors.add("La date doit être au format décrit");
         }
 
 
         if (errors.size() == 0) {
             WatchingInfo watchingInfo = WatchingInfo.builder()
-                    .beginningDate(dBeggingDate)
+                    .beginningDate(dbirthdate)
                     .idSerie(lIDSerie)
                     .idViewer(lIDViewer)
                     .timeSpent(lTimeSpent)
@@ -105,13 +105,22 @@ public class AddWatchingInfoServlet extends HttpServlet {
         } else {
             request.setAttribute("errors", errors);
         }
-        request.getRequestDispatcher("/WEB-INF/pages/addSerie.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = ((User) request.getSession().getAttribute("user"));
+
+        List<Serie> allSeries = new ArrayList<>();
+        allSeries = seriesManagerLocal.findAll(user, 0, seriesManagerLocal.count(user));
+
+        List<Viewer> allViewers = new ArrayList<>();
+        allViewers = viewersManagerLocal.findAll(user, 0, viewersManagerLocal.count(user));
+
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfol.jsp").forward(request, response);
+        request.setAttribute("series",allSeries);
+        request.setAttribute("viewers",allViewers);
+        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
     }
 }
-l

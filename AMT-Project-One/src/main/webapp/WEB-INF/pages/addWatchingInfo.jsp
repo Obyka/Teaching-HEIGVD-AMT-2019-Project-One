@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,11 +15,11 @@
     <title>AMT Project One</title>
 
     <!-- Custom fonts for this template-->
-    <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="./assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -33,23 +34,34 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Inscription</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Ajouter une Watching Info</h1>
                         </div>
-                        <form class="user" method="POST" action="./register">
+                        <form class="user" method="POST" action="./addwatchinginfo">
                             <div class="form-group">
-                                <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" required="true">
+                            <select class="custom-select" name="idserie">
+                                <c:forEach items="${series}" var="serie">
+                                    <option value="${serie.id}">${serie.title}</option>
+                                </c:forEach>
+                            </select>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password1" class="form-control form-control-user" placeholder="Mot de passe" required="true">
+                            <select class="custom-select" name="idviewer">
+                                <c:forEach items="${viewers}" var="viewer">
+                                    <option value="${viewer.id}">${viewer.username}</option>
+                                </c:forEach>
+                            </select>
+                            </div>
+                                <div class="form-group">
+                                <input type="text" name="timespent" class="form-control form-control-user" placeholder="Time spent" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password2" class="form-control form-control-user" placeholder="Répétez Mot de Passe" required="true">
+                                <input type="text" name="beginningdate" class="form-control form-control-user" placeholder="Beginning date" required="true">
                             </div>
-                            <input type="submit" class="btn btn-primary btn-user btn-block" value="S'Inscrire"/>
+                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Ajouter"/>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="./login">Déjà membre ? Se connecter</a>
+                            <a class="small" href="#">Retour</a>
                         </div>
                         <c:if test="${errors != null}">
                             <hr>
@@ -60,6 +72,9 @@
                                 </c:forEach>
                             </ul>
                         </c:if>
+                        <c:if test="${stateOfCreation != null}">
+                            <p>${stateOfCreation}</p>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -68,14 +83,14 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="./assets/vendor/jquery/jquery.min.js"></script>
-<script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/jquery/jquery.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="./assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="./assets/js/sb-admin-2.min.js"></script>
+<script src="../assets/js/sb-admin-2.min.js"></script>
 
 </body>
 
