@@ -153,4 +153,13 @@
     <servlet-name>DetailSerieServlet</servlet-name>
     <url-pattern>/restreint/detailserie</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DetailViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DetailViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailViewerServlet</servlet-name>
+    <url-pattern>/restreint/detailviewer</url-pattern>
+  </servlet-mapping>
 </web-app>

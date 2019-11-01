@@ -54,9 +54,12 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
         List<WatchingInfo> watchingInfos = new ArrayList<>();
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDViewer = ? AND OwnerID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo WHERE IDViewer = ? AND OwnerID = ? LIMIT ?, ?");
             preparedStatement.setLong(1, viewer.getId());
             preparedStatement.setLong(2, user.getId());
+            preparedStatement.setLong(3, index);
+            preparedStatement.setLong(4, offset);
+
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
                 long idSerie = rs.getLong("IDSerie");
@@ -206,6 +209,24 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
             PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from WatchingInfo where OwnerID = ? AND IDSerie = ?");
             preparedStatement.setLong(1, user.getId());
             preparedStatement.setLong(2, IDSerie);
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            int nbRecord = rs.getInt("count(*)");
+            preparedStatement.close();
+            connection.close();
+            return nbRecord;
+        } catch (SQLException e) {
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.ViewersManager.class.getName()).log(Level.SEVERE, null, e);
+            return -1;
+        }
+    }
+
+    public int countByViewer(User user, long IDViewer){
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select count(*) from WatchingInfo where OwnerID = ? AND IDViewer = ?");
+            preparedStatement.setLong(1, user.getId());
+            preparedStatement.setLong(2, IDViewer);
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
             int nbRecord = rs.getInt("count(*)");

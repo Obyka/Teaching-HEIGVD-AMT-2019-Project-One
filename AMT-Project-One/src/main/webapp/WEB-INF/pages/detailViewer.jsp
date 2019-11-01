@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>AMT Project One - Viewers</title>
+    <title>AMT Project One</title>
     <!-- Custom fonts for this template -->
     <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -118,54 +118,48 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <c:if test="${internError == null}">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Viewers</h1>
-                <p class="mb-4"></p>
-                <!-- DataTales Example -->
+                <h1 class="h3 mb-2 text-gray-800">${viewer.username}</h1>
+                <h2 class="h4 mb-2 text-gray-800">${viewer.firstname}</h2>
+                    <h2 class="h4 mb-2 text-gray-800">${viewer.lastname}</h2>
+                    <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Liste des viewers</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Série(s) regardée(s) par ce spectateur</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" width="100%" cellspacing="0">
                                 <thead>
-                                    <tr>
-                                        <th>Prénom</th>
-                                        <th>Nom</th>
-                                        <th>Nom d'utilisateur</th>
-                                        <th>Genre</th>
-                                        <th>Date de naissance</th>
-                                        <th colspan="3">Action</th>
-                                    </tr>
+                                <tr>
+                                    <td>Titre de la série</td>
+                                    <td>Première visualisation</td>
+                                    <td>Temps passé</td>
+                                </tr>
                                 </thead>
                                 <tfoot>
                                 <tbody>
-                                    <c:forEach items="${viewers}" var="viewer">
-                                        <tr>
-                                            <td>${viewer.firstname}</td>
-                                            <td>${viewer.lastname}</td>
-                                            <td>${viewer.username}</td>
-                                            <td>${viewer.genre}</td>
-                                            <td>${viewer.birthDate}</td>
-                                            <td><a href="./detailviewer?idviewer=${viewer.id}">Voir</a></td>
-                                            <td><a href="./deleteviewer?idviewer=${viewer.id}">Supprimer</a></td>
-                                            <td><a href="./modifyviewer?idviewer=${viewer.id}">Modifier</a></td>
-                                        </tr>
-                                    </c:forEach>
+                                <c:forEach items="${seriesInfo}" var="serieInfo">
+                                    <tr>
+                                        <td>${serieInfo.key}</td>
+                                        <td>${serieInfo.value.beginningDate}</td>
+                                        <td>${serieInfo.value.timeSpent}</td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
-                            <a href="./addviewer" class="btn btn-primary">
-                                <span class="text">Ajouter un viewer</span>
-                            </a>
-                            <hr>
                         </div>
                         <div class="pagination">
                             <c:forEach begin="1" end="${nbPage}" var="val">
-                            <a href=<c:out value="./viewers?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                                <a href=<c:out value="./detailviewer?pagetable=${val-1}&idviewer=${viewer.id}"/>><c:out value="${val}"/></a>
                             </c:forEach>
                         </div>
                     </div>
+                    </c:if>
+                    <c:if test="${internError != null}">
+                        <h3>${internError}</h3>
+                    </c:if>
                 </div>
             </div>
             <!-- /.container-fluid -->
@@ -192,7 +186,7 @@
             <div class="modal-body">Voulez-vous vous déconnecter ?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Retour</button>
-                <a class="btn btn-primary" href="../logout">Logout</a>
+                <a class="btn btn-primary" href="../logout">Se déconnecter</a>
             </div>
         </div>
     </div>
