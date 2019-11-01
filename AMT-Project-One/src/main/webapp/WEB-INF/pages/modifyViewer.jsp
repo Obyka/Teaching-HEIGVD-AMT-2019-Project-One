@@ -48,12 +48,14 @@
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" value="${viewer.username}"required="true">
                             </div>
-                            <select name="genre">
+                            <div class="form-group">
+                            <select class="custom-select" name="genre">
                                 <option value="Genre" selected>--- Genre ---</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
                                 <option value="Autre">Autre</option>
                             </select>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd" value="${viewer.birthDate}" required="true">
                             </div>

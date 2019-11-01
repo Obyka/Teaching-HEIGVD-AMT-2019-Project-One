@@ -46,13 +46,14 @@
                             <div class="form-group">
                                 <input type="text" name="username" class="form-control form-control-user" placeholder="Nom d'utilisateur" required="true">
                             </div>
-                            <select name="genre">
+                            <div class="form-group">
+                            <select class="custom-select" name="genre">
                                 <option value="Genre" selected>--- Genre ---</option>
                                 <option value="Homme">Homme</option>
                                 <option value="Femme">Femme</option>
-                                <option value="Non binaire">Non binaire</option>
-                                <option value="Androgyne">Androgyne</option>
+                                <option value="Autre">Autre</option>
                             </select>
+                            </div>
                             <div class="form-group">
                                 <input type="text" name="birthdate" class="form-control form-control-user" placeholder="Date de naissance: yyyy-mm-dd" required="true">
                             </div>
