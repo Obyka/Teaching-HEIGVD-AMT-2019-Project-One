@@ -55,7 +55,7 @@
                                 <input type="text" name="timespent" class="form-control form-control-user" placeholder="Time spent" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="beginningdate" class="form-control form-control-user" placeholder="Beginning date" required="true">
+                                <input type="date" name="beginningdate" class="form-control" placeholder="Beginning date" required="true">
                             </div>
                             <input type="submit" class="btn btn-primary btn-user btn-block" value="Ajouter"/>
                         </form>
