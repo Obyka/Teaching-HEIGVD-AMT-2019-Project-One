@@ -63,7 +63,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="#">Retour</a>
+                            <a class="small" href="./viewers">Retour</a>
                         </div>
                         <c:if test="${errors != null}">
                             <hr>

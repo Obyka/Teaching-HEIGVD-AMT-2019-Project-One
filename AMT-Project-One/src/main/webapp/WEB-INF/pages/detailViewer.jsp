@@ -120,9 +120,15 @@
             <div class="container-fluid">
                 <c:if test="${internError == null}">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">${viewer.username}</h1>
-                <h2 class="h4 mb-2 text-gray-800">${viewer.firstname}</h2>
-                    <h2 class="h4 mb-2 text-gray-800">${viewer.lastname}</h2>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Information sur le Viewer</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${viewer.username}</h5>
+                        <p class="card-text">${viewer.firstname} ${viewer.lastname}</p>
+                    </div>
+                </div>
                     <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -136,6 +142,7 @@
                                     <td>Titre de la série</td>
                                     <td>Première visualisation</td>
                                     <td>Temps passé</td>
+                                    <td>Actions</td>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -145,6 +152,7 @@
                                         <td>${serieInfo.key}</td>
                                         <td>${serieInfo.value.beginningDate}</td>
                                         <td>${serieInfo.value.timeSpent}</td>
+                                        <td><a href="./modifywatchinginfo?idviewer=${serieInfo.value.idViewer}&idserie=${serieInfo.value.idSerie}">Modifier</a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

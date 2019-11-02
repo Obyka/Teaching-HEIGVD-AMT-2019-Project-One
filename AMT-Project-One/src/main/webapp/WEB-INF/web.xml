@@ -162,4 +162,13 @@
     <servlet-name>DetailViewerServlet</servlet-name>
     <url-pattern>/restreint/detailviewer</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ModifiyWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifiyWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifiyWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/modifywatchinginfo</url-pattern>
+  </servlet-mapping>
 </web-app>

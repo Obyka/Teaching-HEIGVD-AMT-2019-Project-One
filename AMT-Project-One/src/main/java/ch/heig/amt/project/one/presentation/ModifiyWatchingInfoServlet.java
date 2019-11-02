@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AddWatchingInfoServlet extends HttpServlet {
+public class ModifiyWatchingInfoServlet extends HttpServlet {
     @EJB
     private WatchingInfosManagerLocal watchingInfosManagerLocal;
 
@@ -42,7 +42,6 @@ public class AddWatchingInfoServlet extends HttpServlet {
         long lIDSerie = 0;
         long lIDViewer = 0;
         int lTimeSpent = 0;
-        Date dBeggingDate = new Date();
 
         List<String> errors = new ArrayList<>();
         if (IDSerie == null || IDSerie.trim().equals("")) {
@@ -75,7 +74,7 @@ public class AddWatchingInfoServlet extends HttpServlet {
             errors.add("Temps invalide");
         }
 
-        java.util.Date dBeginningDate = new Date();
+        Date dBeginningDate = new Date();
 
         try {
             dBeginningDate = new SimpleDateFormat("yyyy-MM-dd").parse(BeginningDate);
@@ -85,41 +84,63 @@ public class AddWatchingInfoServlet extends HttpServlet {
             errors.add("La date doit être au format décrit");
         }
 
+        WatchingInfo watchingInfo = watchingInfosManagerLocal.findOne(user, lIDSerie, lIDViewer);
+        if(watchingInfo.getId() == -1) {
+            errors.add("Le profil de visionnage que vous voulez modifier n'existe pas");
+        }
 
         if (errors.size() == 0) {
-            WatchingInfo watchingInfo = WatchingInfo.builder()
-                    .beginningDate(dBeginningDate)
-                    .idSerie(lIDSerie)
-                    .idViewer(lIDViewer)
-                    .timeSpent(lTimeSpent)
-                    .build();
-            watchingInfo.setOwner(user.getId());
+            watchingInfo.setTimeSpent(lTimeSpent);
+            watchingInfo.setBeginningDate(dBeginningDate);
 
-            boolean created = watchingInfosManagerLocal.create(watchingInfo);
-            if (created) {
-                request.setAttribute("stateOfCreation", "Le profil de visionnage a bien été créé");
+            boolean updated = watchingInfosManagerLocal.update(watchingInfo);
+
+            if (updated) {
+                request.setAttribute("stateOfCreation", "Le profil de visionnage a bien été modifié");
             } else {
-                    request.setAttribute("stateOfCreation", "Une erreur est survenue");
+                request.setAttribute("stateOfCreation", "Une erreur est survenue");
             }
         } else {
             request.setAttribute("errors", errors);
         }
-        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/modifyWatchingInfo.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = ((User) request.getSession().getAttribute("user"));
+        String sidSerie = request.getParameter("idserie");
+        String sIdViewer = request.getParameter("idviewer");
 
-        List<Serie> allSeries = new ArrayList<>();
-        allSeries = seriesManagerLocal.findAll(user, 0, seriesManagerLocal.count(user));
+        long idSerie = 0;
+        long idViewer = 0;
 
-        List<Viewer> allViewers = new ArrayList<>();
-        allViewers = viewersManagerLocal.findAll(user, 0, viewersManagerLocal.count(user));
+        if(sidSerie == null || sIdViewer == null) {
+            response.sendRedirect(request.getContextPath() + "/restreint/series");
+            return;
+        }
 
+        try {
+            idSerie = Long.valueOf(sidSerie);
+            idViewer = Long.valueOf(sIdViewer);
+        } catch (NumberFormatException nb) {
+            response.sendRedirect(request.getContextPath() + "/restreint/series");
+        }
+
+        WatchingInfo watchingInfo = watchingInfosManagerLocal.findOne(user, idSerie, idViewer);
+
+        if(watchingInfo.getId() == -1) {
+            response.sendRedirect(request.getContextPath() + "/restreint/series");
+            return;
+        }
+
+        Serie serie = seriesManagerLocal.findById(user, idSerie);
+        Viewer viewer = viewersManagerLocal.findById(user, idViewer);
+        request.setAttribute("serie", serie);
+        request.setAttribute("viewer", viewer);
+        request.setAttribute("watchingInfo", watchingInfo);
+        request.setAttribute("backToWebsite", "./detailserie?idserie=" + idSerie);
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("series",allSeries);
-        request.setAttribute("viewers",allViewers);
-        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/modifyWatchingInfo.jsp").forward(request, response);
     }
 }
