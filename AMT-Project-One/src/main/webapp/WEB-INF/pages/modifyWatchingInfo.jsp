@@ -34,31 +34,42 @@
                 <div class="col-lg-12">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Modifier une serie</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Modifier une Watching Info</h1>
                         </div>
-                        <form class="user" method="POST" action="./modifyserie">
-                            <input type="text" name="id" hidden="true" value="${serie.id}">
-
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Information sur la Serie</h6>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${serie.title}</h5>
+                                <p class="card-text">${serie.synopsis}</p>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Information sur le Viewer</h6>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${viewer.username}</h5>
+                                <p class="card-text">${viewer.firstname} ${viewer.lastname}</p>
+                            </div>
+                        </div>
+                        <form class="user" method="POST" action="./modifywatchinginfo">
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control form-control-user" placeholder="Titre" value="${serie.title}" required="true">
+                                <label>Temps de visionnage (min)</label>
+                                <input type="text" name="timespent" class="form-control form-control-user" placeholder="Time spent" value="${watchingInfo.timeSpent}" required="true">
                             </div>
                             <div class="form-group">
-                                <input type="text" name="genre" class="form-control form-control-user" placeholder="Genre" value="${serie.genre}" required="true">
+                                <label>Date du premier visionnage</label>
+                                <input type="date" name="beginningdate" class="form-control" placeholder="Beginning date" value="${watchingInfo.beginningDate}" required="true">
                             </div>
-                            <div class="form-group">
-                                <input type="text" name="producer" class="form-control form-control-user" placeholder="Producteur" value="${serie.producer}" required="true">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="ageRestriction" class="form-control form-control-user" placeholder="Restriction d'âge" value="${serie.ageRestriction}" required="true">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="synopsis" class="form-control form-control-user" placeholder="Synopsis" value="${serie.synopsis}" required="true">
-                            </div>
-                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Modifer"/>
+                            <input type="hidden" name="idserie" value="${watchingInfo.idSerie}" required="true">
+                            <input type="hidden" name="idviewer" value="${watchingInfo.idViewer}" required="true">
+                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Modifier"/>
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="./series">Retour</a>
+                            <a class="small" href="${backToWebsite}">Retour</a>
                         </div>
                         <c:if test="${errors != null}">
                             <hr>
