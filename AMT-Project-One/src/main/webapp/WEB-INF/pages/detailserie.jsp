@@ -142,7 +142,7 @@
                                     <td>Nom d'utilisateur</td>
                                     <td>Temps de visionnage</td>
                                     <td>Première visualisation</td>
-                                    <td>Action</td>
+                                    <td colspan="2">Action</td>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -153,6 +153,7 @@
                                         <td>${viewerInfo.value.timeSpent} minutes</td>
                                         <td>${viewerInfo.value.beginningDate}</td>
                                         <td><a href="./modifywatchinginfo?idviewer=${viewerInfo.value.idViewer}&idserie=${viewerInfo.value.idSerie}">Modifier</a></td>
+                                        <td><a href="./deletewatchinginfo?idviewer=${viewerInfo.value.idViewer}&idserie=${viewerInfo.value.idSerie}">Supprimer</a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

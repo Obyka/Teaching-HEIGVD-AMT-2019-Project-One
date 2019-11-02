@@ -142,7 +142,7 @@
                                     <td>Titre de la série</td>
                                     <td>Première visualisation</td>
                                     <td>Temps passé</td>
-                                    <td>Actions</td>
+                                    <td colspan="2">Actions</td>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -153,6 +153,7 @@
                                         <td>${serieInfo.value.beginningDate}</td>
                                         <td>${serieInfo.value.timeSpent}</td>
                                         <td><a href="./modifywatchinginfo?idviewer=${serieInfo.value.idViewer}&idserie=${serieInfo.value.idSerie}">Modifier</a></td>
+                                        <td><a href="./deletewatchinginfo?idviewer=${viewerInfo.value.idViewer}&idserie=${viewerInfo.value.idSerie}">Supprimer</a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
