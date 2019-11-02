@@ -171,4 +171,13 @@
     <servlet-name>ModifiyWatchingInfoServlet</servlet-name>
     <url-pattern>/restreint/modifywatchinginfo</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DeleteWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/deletewatchinginfo</url-pattern>
+  </servlet-mapping>
 </web-app>
