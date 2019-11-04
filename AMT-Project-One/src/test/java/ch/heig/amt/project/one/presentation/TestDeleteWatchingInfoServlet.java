@@ -2,7 +2,6 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.WatchingInfosManagerLocal;
 import ch.heig.amt.project.one.model.User;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
