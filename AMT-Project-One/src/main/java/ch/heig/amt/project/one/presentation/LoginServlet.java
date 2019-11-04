@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LoginServlet extends HttpServlet {
     @EJB
-    private UsersManagerLocal usersManagerLocal;
+    UsersManagerLocal usersManagerLocal;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
             errors.add("Le nom d'utilisateur ne peut pas être vide");
         }
         if(password == null || password.trim().equals("")) {
-            errors.add("Le mot de passe ne peut pas être libre");
+            errors.add("Le mot de passe ne peut pas être vide");
         }
         boolean connectionSuccessful = usersManagerLocal.validConnection(username, password);
         if(!connectionSuccessful) {
@@ -41,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 
         if(errors.size() == 0) {
             User user = usersManagerLocal.findUserByUsername(username);
-            request.getSession(true);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(request.getContextPath() + "/restreint/series");
         } else {
