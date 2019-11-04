@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DeleteWatchingInfoServlet extends HttpServlet {
     @EJB
@@ -26,20 +28,13 @@ public class DeleteWatchingInfoServlet extends HttpServlet {
         String sidSerie = request.getParameter("idserie");
         String sIdViewer = request.getParameter("idviewer");
 
-        long idSerie = 0;
-        long idViewer = 0;
-
-        if(sidSerie == null || sIdViewer == null) {
-            response.sendRedirect(request.getContextPath() + "/restreint/series");
-            return;
-        }
-
         try {
-            idSerie = Long.valueOf(sidSerie);
-            idViewer = Long.valueOf(sIdViewer);
+            long idSerie = Long.valueOf(sidSerie);
+            long idViewer = Long.valueOf(sIdViewer);
             boolean deleted = watchingInfosManagerLocal.delete(user, idSerie, idViewer);
-            response.sendRedirect(request.getContextPath() + "/restreint/detailserie?idserie" + idSerie);
-        } catch (NumberFormatException nb) {
+            response.sendRedirect(request.getContextPath() + "/restreint/detailserie?idserie=" + idSerie);
+        } catch (Exception e) {
+            Logger.getLogger(ch.heig.amt.project.one.presentation.DeleteWatchingInfoServlet.this.getClass().getName()).log(Level.SEVERE, null, e);
             response.sendRedirect(request.getContextPath() + "/restreint/series");
             return;
         }
