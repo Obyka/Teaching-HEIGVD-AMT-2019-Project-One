@@ -2,7 +2,6 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.WatchingInfosManagerLocal;
 import ch.heig.amt.project.one.model.User;
-import ch.heig.amt.project.one.model.WatchingInfo;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,11 +15,6 @@ import java.util.logging.Logger;
 public class DeleteWatchingInfoServlet extends HttpServlet {
     @EJB
     WatchingInfosManagerLocal watchingInfosManagerLocal;
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response);
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
