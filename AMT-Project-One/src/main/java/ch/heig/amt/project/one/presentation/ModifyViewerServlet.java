@@ -41,6 +41,7 @@ public class ModifyViewerServlet extends HttpServlet {
             idParsed = Long.parseLong(id);
         } catch (Exception e){
             errors.add("Le viwer demandé n'est pas modifiable");
+            idParsed = -1;
         }
 
         if(firstname == null || firstname.trim().equals("")) {
@@ -62,16 +63,18 @@ public class ModifyViewerServlet extends HttpServlet {
             errors.add("La date de naissance ne peut pas être vide");
         }
 
+        java.util.Date dbirthdate = new Date();
+        try {
+            dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
+        } catch (Exception e) {
+            errors.add("La date doit être au bon format");
+            Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
+        }
+
         if(errors.size() == 0) {
             Viewer viewer = viewersManagerLocal.findById(user, idParsed);
             if(viewer.getOwner() == user.getId() && viewer.getId() != -1) {
-                java.util.Date dbirthdate = new Date();
-                try {
-                    dbirthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
-                } catch (Exception e) {
-                    errors.add("La date doit être au bon format");
-                    Logger.getLogger(ch.heig.amt.project.one.presentation.AddViewerServlet.class.getName()).log(Level.SEVERE, null, e);
-                }
+
 
                 Viewer viewerUpdated = Viewer.builder()
                         .firstname(firstname)
@@ -88,10 +91,14 @@ public class ModifyViewerServlet extends HttpServlet {
                     request.setAttribute("stateOfCreation", "Le viewer a bien été modifié");
                 } else {
                     request.setAttribute("stateOfCreation", "Une erreur est survenue");
+                    Viewer viewer2 = viewersManagerLocal.findById(user, idParsed);
+                    request.setAttribute("viewer", viewer2);
                 }
             }
         } else {
             request.setAttribute("errors", errors);
+            Viewer viewer2 = viewersManagerLocal.findById(user, idParsed);
+            request.setAttribute("viewer", viewer2);
         }
         request.getRequestDispatcher("/WEB-INF/pages/modifyViewer.jsp").forward(request, response);
     }

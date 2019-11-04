@@ -99,9 +99,12 @@ public class ModifiyWatchingInfoServlet extends HttpServlet {
                 request.setAttribute("stateOfCreation", "Le profil de visionnage a bien été modifié");
             } else {
                 request.setAttribute("stateOfCreation", "Une erreur est survenue");
+                setParams(user, lIDSerie, lIDViewer, request, watchingInfo);
+
             }
         } else {
             request.setAttribute("errors", errors);
+            setParams(user, lIDSerie, lIDViewer, request, watchingInfo);
         }
         request.getRequestDispatcher("/WEB-INF/pages/modifyWatchingInfo.jsp").forward(request, response);
     }
@@ -125,6 +128,7 @@ public class ModifiyWatchingInfoServlet extends HttpServlet {
             idViewer = Long.valueOf(sIdViewer);
         } catch (NumberFormatException nb) {
             response.sendRedirect(request.getContextPath() + "/restreint/series");
+            return;
         }
 
         WatchingInfo watchingInfo = watchingInfosManagerLocal.findOne(user, idSerie, idViewer);
@@ -134,13 +138,19 @@ public class ModifiyWatchingInfoServlet extends HttpServlet {
             return;
         }
 
+        setParams(user, idSerie, idViewer, request, watchingInfo);
+
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("/WEB-INF/pages/modifyWatchingInfo.jsp").forward(request, response);
+
+    }
+
+    void setParams(User user, long idSerie, long idViewer, HttpServletRequest request, WatchingInfo watchingInfo){
         Serie serie = seriesManagerLocal.findById(user, idSerie);
         Viewer viewer = viewersManagerLocal.findById(user, idViewer);
         request.setAttribute("serie", serie);
         request.setAttribute("viewer", viewer);
         request.setAttribute("watchingInfo", watchingInfo);
         request.setAttribute("backToWebsite", "./detailserie?idserie=" + idSerie);
-        response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("/WEB-INF/pages/modifyWatchingInfo.jsp").forward(request, response);
     }
 }

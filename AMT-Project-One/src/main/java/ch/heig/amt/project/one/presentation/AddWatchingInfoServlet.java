@@ -100,9 +100,11 @@ public class AddWatchingInfoServlet extends HttpServlet {
                 request.setAttribute("stateOfCreation", "Le profil de visionnage a bien été créé");
             } else {
                     request.setAttribute("stateOfCreation", "Une erreur est survenue");
+                    setParams(request, seriesManagerLocal.findAll(user, 0, seriesManagerLocal.count(user)), viewersManagerLocal.findAll(user, 0, viewersManagerLocal.count(user)));
             }
         } else {
             request.setAttribute("errors", errors);
+            setParams(request, seriesManagerLocal.findAll(user, 0, seriesManagerLocal.count(user)), viewersManagerLocal.findAll(user, 0, viewersManagerLocal.count(user)));
         }
         request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
     }
@@ -118,8 +120,12 @@ public class AddWatchingInfoServlet extends HttpServlet {
         allViewers = viewersManagerLocal.findAll(user, 0, viewersManagerLocal.count(user));
 
         response.setContentType("text/html;charset=UTF-8");
+        setParams(request, allSeries, allViewers);
+        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
+    }
+
+    private void setParams(HttpServletRequest request, List<Serie> allSeries, List<Viewer> allViewers){
         request.setAttribute("series",allSeries);
         request.setAttribute("viewers",allViewers);
-        request.getRequestDispatcher("/WEB-INF/pages/addWatchingInfo.jsp").forward(request, response);
     }
 }

@@ -89,10 +89,12 @@ public class ModifySerieServlet extends HttpServlet {
                     request.setAttribute("stateOfCreation", "La série a bien été modifiée");
                 } else {
                     request.setAttribute("stateOfCreation", "Une erreur est survenue");
+                    setParams(request, seriesManagerLocal.findById(user, idParsed));
                 }
             }
         } else {
             request.setAttribute("errors", errors);
+            setParams(request, seriesManagerLocal.findById(user, idParsed));
         }
         request.getRequestDispatcher("/WEB-INF/pages/modifySerie.jsp").forward(request, response);
     }
@@ -104,11 +106,15 @@ public class ModifySerieServlet extends HttpServlet {
         if(sIdSerie != null) {
             long idserie = Long.valueOf(sIdSerie);
             Serie serie = seriesManagerLocal.findById(user, idserie);
-            request.setAttribute("serie", serie);
+            setParams(request, serie);
             response.setContentType("text/html;charset=UTF-8");
             request.getRequestDispatcher("/WEB-INF/pages/modifySerie.jsp").forward(request, response);
         } else{
             response.sendRedirect(request.getContextPath() + "/restreint/series");
         }
+    }
+
+    private void setParams(HttpServletRequest request, Serie serie){
+        request.setAttribute("serie", serie);
     }
 }
