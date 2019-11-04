@@ -17,13 +17,28 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <version.arquillian_universe>1.2.0.2</version.arquillian_universe>
+    <version.arquillian.chameleon>1.0.0.CR6</version.arquillian.chameleon>
+    <version.arquillian>1.5.0.Final</version.arquillian>
+    <arquillian.launch></arquillian.launch>
   </properties>
 
   <dependencies>
     <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+    <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>8.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -36,6 +51,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.10</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -46,6 +62,12 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.4.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
@@ -62,9 +84,33 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.1</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.arquillian.container</groupId>
+      <artifactId>arquillian-chameleon-junit-container-starter</artifactId>
+      <version>${version.arquillian.chameleon}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.extension</groupId>
+      <artifactId>arquillian-transaction-jta</artifactId>
+      <version>1.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.arquillian.container</groupId>
+      <artifactId>arquillian-container-chameleon-runner</artifactId>
+      <version>${version.arquillian.chameleon}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.arquillian.container</groupId>
+      <artifactId>arquillian-chameleon-maven-build-deployment</artifactId>
+      <version>${version.arquillian.chameleon}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
