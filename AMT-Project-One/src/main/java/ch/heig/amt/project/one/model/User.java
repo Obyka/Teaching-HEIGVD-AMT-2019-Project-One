@@ -5,14 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Builder
 @Getter
 @Setter
 @EqualsAndHashCode
 public class User {
+    private long id;
     private String username;
     private String password;
-    private ArrayList<Entity> entities;
 }

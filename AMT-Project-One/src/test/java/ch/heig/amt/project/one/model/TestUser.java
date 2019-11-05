@@ -4,56 +4,50 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 public class TestUser {
-    @Test
-    void itShouldBePossibleToCreateUsers() {
-        // Declaration
-        ArrayList<Entity> entities = new ArrayList<Entity>();
-        // Assertions
-        Entity serie1 = Serie.builder()
-                .title("Game of Thrones")
-                .genre("Drama")
-                .producer("HBO")
-                .ageRestriction(16)
-                .synopsis("Jon Snow is badass")
-                .build();
-        Entity serie2 = Serie.builder()
-                .title("Miami Vice")
-                .genre("Cop")
-                .producer("NBC")
-                .ageRestriction(13)
-                .synopsis("The white ferrari is so cool")
-                .build();
+    private final String username = "admin";
+    private final String password = "admin1234";
+    private final long id = 1890000;
 
-        // Tests
-        entities.add(Serie.builder()
-                .title("Game of Thrones")
-                .genre("Drama")
-                .producer("HBO")
-                .ageRestriction(16)
-                .synopsis("Jon Snow is badass")
-                .build());
-
-        entities.add(Serie.builder()
-                .title("Miami Vice")
-                .genre("Cop")
-                .producer("NBC")
-                .ageRestriction(13)
-                .synopsis("The white ferrari is so cool")
-                .build());
-
+    User HelperCreateUser() {
         User user = User.builder()
-            .username("admin")
-            .password("admin2019")
-            .entities(entities)
+                .username(username)
+                .password(password)
+                .id(id)
                 .build();
 
+        return user;
+    }
+
+    void HelperAssertUser(User user) {
         assertNotNull(user);
-        assertEquals("admin", user.getUsername());
-        assertEquals("admin2019", user.getPassword());
-        assertEquals(serie1, entities.get(0));
-        assertEquals(serie2, entities.get(1));
+        assertEquals(username, user.getUsername());
+        assertEquals(password, user.getPassword());
+        assertEquals(id, user.getId());
+    }
+
+    @Test
+    void itShouldBePossibleToCreateAUser() {
+        User user = HelperCreateUser();
+        HelperAssertUser(user);
+    }
+
+    @Test
+    void itShouldBePossibleToSetAUser() {
+        User user = User.builder().build();
+
+        user.setId(id);
+        user.setUsername(username);
+        user.setPassword(password);
+
+        HelperAssertUser(user);
+    }
+
+    @Test
+    void itShouldBePossibleToHaveTwoUsersEqual() {
+        User user = HelperCreateUser();
+        User user2 = HelperCreateUser();
+
+        assertEquals(true, user.equals(user2));
     }
 }

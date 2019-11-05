@@ -4,49 +4,68 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class TestViewer {
-    @Test
-    void itShouldBePossibleToCreateViewers() {
-        ArrayList<WatchingInfo> watchingInfos = new ArrayList<>();
-        WatchingInfo watchingInfo1 = WatchingInfo.builder()
-                .beginningDate(new Date())
-                .timeSpent(1789)
-                .build();
+    private final String firstname = "John";
+    private final String lastname = "Fitz";
+    private final String username = "fitz_johnnn97";
+    private final String genre = "Homme";
+    private final Date birthdate = new Date(1997, 10, 5);
+    private final long id = 154;
+    private final long idOwner = 8560000;
 
-        WatchingInfo watchingInfo2 = WatchingInfo.builder()
-                .beginningDate(new Date())
-                .timeSpent(1480)
-                .build();
-
-        watchingInfos.add(WatchingInfo.builder()
-                .beginningDate(new Date())
-                .timeSpent(1789)
-                .build());
-
-        watchingInfos.add(WatchingInfo.builder()
-                .beginningDate(new Date())
-                .timeSpent(1480)
-                .build());
-
+    Viewer HelperCreateViewer() {
         Viewer viewer = Viewer.builder()
-                .firstname("John")
-                .lastname("Fitz")
-                .username("fitz97")
-                .birthDate(new Date(1997, 10, 5))
-                .watchingInfos(watchingInfos)
+                .firstname(firstname)
+                .lastname(lastname)
+                .username(username)
+                .genre(genre)
+                .birthDate(birthdate)
                 .build();
-        viewer.setId(1205);
+        viewer.setId(id);
+        viewer.setOwner(idOwner);
 
+        return viewer;
+    }
+
+    void HelperAssertViewer(Viewer viewer) {
         assertNotNull(viewer);
-        assertEquals(1205, viewer.getId());
-        assertEquals("John", viewer.getFirstname());
-        assertEquals("Fitz", viewer.getLastname());
-        assertEquals("fitz97", viewer.getUsername());
-        assertEquals(new Date(1997, 10, 5), viewer.getBirthDate());
-        assertEquals(watchingInfo1, viewer.getWatchingInfos().get(0));
-        assertEquals(watchingInfo2, viewer.getWatchingInfos().get(1));
+        assertEquals(id, viewer.getId());
+        assertEquals(idOwner, viewer.getOwner());
+        assertEquals(firstname, viewer.getFirstname());
+        assertEquals(lastname, viewer.getLastname());
+        assertEquals(username, viewer.getUsername());
+        assertEquals(genre, viewer.getGenre());
+        assertEquals(birthdate, viewer.getBirthDate());
+    }
+
+    @Test
+    void itShouldBePossibleToCreateAViewer() {
+        Viewer viewer = HelperCreateViewer();
+        HelperAssertViewer(viewer);
+    }
+
+    @Test
+    void itShouldBePossibleToSetAViewer() {
+        Viewer viewer = Viewer.builder().build();
+
+        viewer.setId(id);
+        viewer.setOwner(idOwner);
+        viewer.setFirstname(firstname);
+        viewer.setLastname(lastname);
+        viewer.setUsername(username);
+        viewer.setGenre(genre);
+        viewer.setBirthDate(birthdate);
+
+        HelperAssertViewer(viewer);
+    }
+
+    @Test
+    void itShouldBePossibleToHaveTwoViewersEqual() {
+        Viewer viewer = HelperCreateViewer();
+        Viewer viewer2 = HelperCreateViewer();
+
+        assertEquals(true, viewer.equals(viewer2));
     }
 }

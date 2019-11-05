@@ -4,12 +4,180 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
   <display-name>Archetype Created Web Application</display-name>
+
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>ch.heig.amt.project.one.filter.loginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/restreint/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>LoggedFilter</filter-name>
+    <filter-class>ch.heig.amt.project.one.filter.LoggedFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoggedFilter</filter-name>
+    <url-pattern>/login</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>LoggedFilter</filter-name>
+    <url-pattern>/register</url-pattern>
+  </filter-mapping>
+
   <servlet>
-    <servlet-name>SeriesServlet</servlet-name>
-    <servlet-class>ch.heig.amt.project.one.presentation.SeriesServlet</servlet-class>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.IndexServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>SeriesServlet</servlet-name>
-    <url-pattern>/series</url-pattern>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>""</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddSerieServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.AddSerieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddSerieServlet</servlet-name>
+    <url-pattern>/restreint/addserie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.AddWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/addwatchinginfo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ModifySerieServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifySerieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifySerieServlet</servlet-name>
+    <url-pattern>/restreint/modifyserie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.AddViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddViewerServlet</servlet-name>
+    <url-pattern>/restreint/addviewer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ModifyViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifyViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyViewerServlet</servlet-name>
+    <url-pattern>/restreint/modifyviewer</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ListViewersServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ListViewersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListViewersServlet</servlet-name>
+    <url-pattern>/restreint/viewers</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListSeriesServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ListSeriesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListSeriesServlet</servlet-name>
+    <url-pattern>/restreint/series</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteSerieServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DeleteSerieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteSerieServlet</servlet-name>
+    <url-pattern>/restreint/deleteserie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DeleteViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteViewerServlet</servlet-name>
+    <url-pattern>/restreint/deleteviewer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DetailSerieServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DetailSerieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailSerieServlet</servlet-name>
+    <url-pattern>/restreint/detailserie</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DetailViewerServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DetailViewerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DetailViewerServlet</servlet-name>
+    <url-pattern>/restreint/detailviewer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ModifiyWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ModifiyWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifiyWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/modifywatchinginfo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.DeleteWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/deletewatchinginfo</url-pattern>
   </servlet-mapping>
 </web-app>
