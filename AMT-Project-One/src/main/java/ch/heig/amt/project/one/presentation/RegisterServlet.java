@@ -44,6 +44,7 @@ public class RegisterServlet extends HttpServlet {
             boolean createdUser = usersManagerLocal.create(username, password1);
                 if(createdUser) {
                     response.sendRedirect(request.getContextPath() + "/login");
+                    return;
                 }
         } else {
             request.setAttribute("errors", errors);

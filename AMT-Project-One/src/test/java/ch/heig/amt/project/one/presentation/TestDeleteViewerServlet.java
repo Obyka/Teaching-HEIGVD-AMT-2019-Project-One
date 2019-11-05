@@ -35,7 +35,6 @@ public class TestDeleteViewerServlet {
     @BeforeEach
     public void setup() {
         servlet = new DeleteViewerServlet();
-        user = User.builder().id(1).username("Obyka").password("Password").build();
         servlet.viewersManagerLocal = viewersManagerLocal;
 
         when(request.getContextPath()).thenReturn("AMT-project-one");

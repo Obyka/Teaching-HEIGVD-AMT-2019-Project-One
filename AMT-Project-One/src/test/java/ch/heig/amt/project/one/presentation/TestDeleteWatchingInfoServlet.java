@@ -35,7 +35,6 @@ public class TestDeleteWatchingInfoServlet {
     @BeforeEach
     public void setup() {
         servlet = new DeleteWatchingInfoServlet();
-        user = User.builder().id(1).username("Obyka").password("Password").build();
         servlet.watchingInfosManagerLocal = watchingInfosManagerLocal;
 
         when(request.getContextPath()).thenReturn("AMT-project-one");
