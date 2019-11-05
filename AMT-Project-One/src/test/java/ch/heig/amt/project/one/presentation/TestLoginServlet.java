@@ -77,7 +77,7 @@ public class TestLoginServlet {
 
         verify(usersManagerLocal, atLeastOnce()).validConnection(username, password);
         verify(usersManagerLocal, atLeastOnce()).findUserByUsername(username);
-        verify(request.getSession(), atLeastOnce()).setAttribute("user", user);
+        verify(session, atLeastOnce()).setAttribute("user", user);
         verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/restreint/series");
     }
 

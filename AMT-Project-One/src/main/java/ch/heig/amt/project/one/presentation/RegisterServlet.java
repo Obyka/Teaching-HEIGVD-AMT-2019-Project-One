@@ -2,26 +2,16 @@ package ch.heig.amt.project.one.presentation;
 
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
 import ch.heig.amt.project.one.model.User;
-import ch.heig.amt.project.one.utils.PasswordHash;
 
 import javax.ejb.EJB;
-import javax.jms.Message;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@WebServlet(name = "RegistrationServlet")
 public class RegisterServlet extends HttpServlet {
     @EJB
     UsersManagerLocal usersManagerLocal;

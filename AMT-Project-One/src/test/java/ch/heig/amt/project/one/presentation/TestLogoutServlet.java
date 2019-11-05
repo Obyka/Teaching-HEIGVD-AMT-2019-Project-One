@@ -38,7 +38,7 @@ public class TestLogoutServlet {
     void doGet() throws ServletException, IOException {
         servlet.doGet(request, response);
 
-        verify(request.getSession(), atLeastOnce()).invalidate();
+        verify(session, atLeastOnce()).invalidate();
         verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/restreint/login");
     }
 }
