@@ -35,7 +35,6 @@ public class TestDeleteSerieServlet {
     @BeforeEach
     public void setup() {
         servlet = new DeleteSerieServlet();
-        user = User.builder().id(1).username("Obyka").password("Password").build();
         servlet.seriesManagerLocal = seriesManagerLocal;
 
         when(request.getContextPath()).thenReturn("AMT-project-one");
