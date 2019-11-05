@@ -51,6 +51,11 @@ public class TestLoginServlet {
     }
 
     void HelperDoPostTestInvalidConnection(List<String> errors) throws ServletException, IOException {
+        when(request.getRequestDispatcher("/WEB-INF/pages/login.jsp")).thenReturn(requestDispatcher);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        when(usersManagerLocal.validConnection(username, password)).thenReturn(false);
+
         servlet.doPost(request, response);
 
         verify(request, atLeastOnce()).setAttribute("errors", errors);
@@ -77,17 +82,14 @@ public class TestLoginServlet {
 
         verify(usersManagerLocal, atLeastOnce()).validConnection(username, password);
         verify(usersManagerLocal, atLeastOnce()).findUserByUsername(username);
-        verify(request.getSession(), atLeastOnce()).setAttribute("user", user);
+        verify(session, atLeastOnce()).setAttribute("user", user);
         verify(response, atLeastOnce()).sendRedirect(request.getContextPath() + "/restreint/series");
     }
 
     @Test
     void doPostWithWrongUsernameOrPassword() throws ServletException, IOException {
         HelperDoPostInit("Jojo", "password");
-        when(request.getRequestDispatcher("/WEB-INF/pages/login.jsp")).thenReturn(requestDispatcher);
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        when(usersManagerLocal.validConnection(username, password)).thenReturn(false);
+
         errors.add("Le nom d'utilisateur ou le mot de passe doit être erroné");
 
         HelperDoPostTestInvalidConnection(errors);
@@ -96,10 +98,7 @@ public class TestLoginServlet {
     @Test
     void doPostWithEmptyUsername() throws ServletException, IOException {
         HelperDoPostInit("", "password");
-        when(request.getRequestDispatcher("/WEB-INF/pages/login.jsp")).thenReturn(requestDispatcher);
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        when(usersManagerLocal.validConnection(username, password)).thenReturn(false);
+
         errors.add("Le nom d'utilisateur ne peut pas être vide");
         errors.add("Le nom d'utilisateur ou le mot de passe doit être erroné");
 
@@ -109,10 +108,7 @@ public class TestLoginServlet {
     @Test
     void doPostWithEmptyPassword() throws ServletException, IOException {
         HelperDoPostInit("Obyka", "");
-        when(request.getRequestDispatcher("/WEB-INF/pages/login.jsp")).thenReturn(requestDispatcher);
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        when(usersManagerLocal.validConnection(username, password)).thenReturn(false);
+
         errors.add("Le mot de passe ne peut pas être vide");
         errors.add("Le nom d'utilisateur ou le mot de passe doit être erroné");
 
