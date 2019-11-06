@@ -91,7 +91,6 @@ class TestAddSerieServlet {
                 .synopsis(synopsis)
                 .build();
         serie.setOwner(user.getId());
-        when(user.getId()).thenReturn(new Long(1));
         when(seriesManagerLocal.create(serie)).thenReturn(true);
 
         servlet.doPost(request, response);
