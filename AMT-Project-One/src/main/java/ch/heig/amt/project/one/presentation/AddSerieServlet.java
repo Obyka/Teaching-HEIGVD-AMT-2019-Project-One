@@ -6,7 +6,6 @@ import ch.heig.amt.project.one.model.User;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class AddSerieServlet extends HttpServlet {
     @EJB
-    private SeriesManagerLocal seriesManagerLocal;
+    SeriesManagerLocal seriesManagerLocal;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +34,7 @@ public class AddSerieServlet extends HttpServlet {
             errors.add("Le genre ne peut pas être vide");
         }
         if(producer == null || producer.trim().equals("")) {
-            errors.add("Le titre ne peut pas être vide");
+            errors.add("Le producteur ne peut pas être vide");
         }
         if(ageRestriction == null || ageRestriction.trim().equals("")) {
             errors.add("La restriction d'âge ne peut pas être vide");
