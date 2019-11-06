@@ -43,6 +43,7 @@ public class ListViewersServlet extends HttpServlet {
             request.setAttribute("username", username);
             request.setAttribute("nbPage", nbPage);
             request.setAttribute("viewers", viewers);
+            request.setAttribute("pagetable", pagetable);
         }
         else {
             internError = "Aucun viewer";

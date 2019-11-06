@@ -76,6 +76,8 @@ public class DetailSerieServlet extends HttpServlet {
                     request.setAttribute("serie", serie);
                     request.setAttribute("viewersInfos", viewersInfo);
                     request.setAttribute("nbPage", nbPage);
+                    request.setAttribute("pagetable", pagetable);
+
 
                 }
                 else {
