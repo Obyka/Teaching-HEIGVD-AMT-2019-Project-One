@@ -38,7 +38,7 @@ public class DetailViewerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int NB_RECORD_PRINT = 1;
+        int NB_RECORD_PRINT = 50;
         String internError = null;
         User user = (User)request.getSession().getAttribute("user");
         String sIdViewer = request.getParameter("idviewer");
@@ -64,7 +64,7 @@ public class DetailViewerServlet extends HttpServlet {
 
             Viewer viewer = viewersManagerLocal.findById(user, IdViewer);
             if(viewer.getId() != -1) {
-                List<WatchingInfo> watchingInfoList = watchingInfosManagerLocal.findByViewer(user, viewer, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
+                List<WatchingInfo> watchingInfoList = watchingInfosManagerLocal.findByViewer(user, viewer, (pagetable * NB_RECORD_PRINT),  NB_RECORD_PRINT);
                 if(watchingInfoList.size() > 0) {
                     List<Pair<String, WatchingInfo>> seriesInfo = new ArrayList<>();
                     for(WatchingInfo w : watchingInfoList) {
@@ -78,6 +78,7 @@ public class DetailViewerServlet extends HttpServlet {
                     request.setAttribute("viewer", viewer);
                     request.setAttribute("seriesInfo", seriesInfo);
                     request.setAttribute("nbPage", nbPage);
+                    request.setAttribute("pagetable", pagetable);
 
                 }
                 else {

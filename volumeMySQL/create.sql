@@ -48,14 +48,9 @@ CREATE TABLE WatchingInfo (
     FOREIGN KEY (IDViewer) REFERENCES Viewer(ID) ON DELETE CASCADE
 );
 
+LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/User.csv' INTO TABLE amtprojectone.User FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/Viewer.csv' INTO TABLE amtprojectone.Viewer FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/Serie.csv' INTO TABLE amtprojectone.Serie FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
+LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/WatchingInfo.csv' INTO TABLE amtprojectone.WatchingInfo FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
 
-SET NAMES utf8;
-SET time_zone = '+00:00';
-SET foreign_key_checks = 0;
-SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
-
-
-INSERT INTO `User` (`ID`, `Username`, `Password`) VALUES
-(1,	'Obyka',	'10000:45b9a33974cd7c95db8979abc625941cef4cf1db3d38a97e:4799f8dce2b2164542a9c981b5e28940e62bc92f78a837d5'),
-(2,	'JoLaBanane98',	'10000:45b9a33974cd7c95db8979abc625941cef4cf1db3d38a97e:4799f8dce2b2164542a9c981b5e28940e62bc92f78a837d5');
 
