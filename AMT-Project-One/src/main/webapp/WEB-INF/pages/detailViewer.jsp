@@ -160,9 +160,20 @@
                             </table>
                         </div>
                         <div class="pagination">
-                            <c:forEach begin="1" end="${nbPage}" var="val">
-                                <a href=<c:out value="./detailviewer?pagetable=${val-1}&idviewer=${viewer.id}"/>><c:out value="${val}"/></a>
-                            </c:forEach>
+
+                            <c:choose>
+                                <c:when test="${nbPage>5}">
+                                    <c:forEach begin="1" end="5" var="val">
+                                        <a href=<c:out value="./detailviewer?pagetable=${val-1}&idviewer=${viewer.id}"/>><c:out value="${val}"/></a>
+                                    </c:forEach>
+                                    <a href=<c:out value="./detailviewer?pagetable=${nbPage-1}&idviewer=${viewer.id}"/>><c:out value="Dernière page"/></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach begin="1" end="${nbPage}" var="val">
+                                        <a href=<c:out value="./detailviewer?pagetable=${val-1}&idviewer=${viewer.id}"/>><c:out value="${val}"/></a>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     </c:if>

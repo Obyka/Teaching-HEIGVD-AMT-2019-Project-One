@@ -35,10 +35,11 @@ public class ListViewersServlet extends HttpServlet {
                 internError = "L'index du tableau doit être un entier";
             }
         }
-        List<Viewer> viewers = viewersManagerLocal.findAll(user, (pagetable * NB_RECORD_PRINT), ((pagetable + 1) * NB_RECORD_PRINT));
+        List<Viewer> viewers = viewersManagerLocal.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
 
         if(viewers.size() > 0) {
-            int nbPage = viewersManagerLocal.count(user) / NB_RECORD_PRINT + ((viewers.size() % NB_RECORD_PRINT == 0) ? 0 : 1);
+            int count = viewersManagerLocal.count(user);
+            int nbPage = count / NB_RECORD_PRINT + ((count % NB_RECORD_PRINT == 0) ? 0 : 1);
             request.setAttribute("username", username);
             request.setAttribute("nbPage", nbPage);
             request.setAttribute("viewers", viewers);

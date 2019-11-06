@@ -42,7 +42,8 @@ public class LoginServlet extends HttpServlet {
         if(errors.size() == 0) {
             User user = usersManagerLocal.findUserByUsername(username);
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/restreint/series");
+            String path = request.getContextPath() + "/restreint/series";
+            response.sendRedirect(path);
         } else {
             request.setAttribute("errors", errors);
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);

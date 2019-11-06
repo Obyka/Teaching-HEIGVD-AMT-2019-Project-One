@@ -168,10 +168,20 @@
                             <hr>
                         </div>
                         <div class="pagination">
+                            <c:choose>
+                                <c:when test="${nbPage>5}">
+                                    <c:forEach begin="1" end="5" var="val">
+                                        <a href=<c:out value="./series?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                                    </c:forEach>
+                                    <a href=<c:out value="./series?pagetable=${nbPage-1}"/>><c:out value="Dernière page"/></a>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach begin="1" end="${nbPage}" var="val">
+                                        <a href=<c:out value="./series?pagetable=${val-1}"/>><c:out value="${val}"/></a>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
 
-                            <c:forEach begin="1" end="${nbPage}" var="val">
-                                <a href=<c:out value="./series?pagetable=${val-1}"/>><c:out value="${val}"/></a>
-                            </c:forEach>
                         </div>
                     </div>
                 </div>
