@@ -10,28 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ListSeriesServlet extends HttpServlet {
     @EJB
-    private SeriesManagerLocal seriesManager;
+    SeriesManagerLocal seriesManager;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int NB_RECORD_PRINT = 50;
         String internError = null;
+        List<Serie> series = new ArrayList<>();
         User user = ((User)req.getSession().getAttribute("user"));
         String username = user.getUsername();
         int pagetable = 0;
         if(req.getParameter("pagetable") != null) {
             try {
                 pagetable = Integer.valueOf(req.getParameter("pagetable"));
+                series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
             } catch(NumberFormatException nb) {
-                internError = "L'index du tableau doit être un entier";
+                Logger.getLogger(ch.heig.amt.project.one.presentation.ListSeriesServlet.this.getClass().getName()).log(Level.SEVERE, null, nb);
             }
         }
-
-        List<Serie> series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
 
         if(series.size() > 0) {
             int count = seriesManager.count(user);
