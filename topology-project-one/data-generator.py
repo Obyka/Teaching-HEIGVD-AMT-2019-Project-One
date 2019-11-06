@@ -6,16 +6,15 @@ from faker import Faker
 fake = Faker()
 
 print("use amtprojectone;")
-print("INSERT INTO Viewer(Firstname, Lastname, Username, Genre, OwnerID) VALUES ")
+print("INSERT INTO Viewer(Firstname, Lastname, Username, Genre, Birthdate, OwnerID) VALUES ")
 nbIteration = int(sys.argv[1])
 for i in xrange(nbIteration):
-    firstname = names.get_first_name(gender='female')
-    lastname = names.get_last_name()
-    print("(\""+firstname+"\",\""+lastname+"\",\""+firstname+"."+lastname+"-"+str(i)+"\",\"Female\",\"1\"),")
-for i in xrange(nbIteration):
+    profile = fake.simple_profile(sex=None)
     firstname = names.get_first_name(gender='male')
     lastname = names.get_last_name()
-    print("(\""+firstname+"\",\""+lastname+"\",\""+firstname+"."+lastname+"-"+str(i)+"\",\"Male\",\"1\")",end='')
+    username = profile['username'] + "-" + str(i)
+    birthdate = profile['birthdate']
+    print("(\""+firstname+"\",\""+lastname+"\",\""+username+"\",\""+profile['sex']+"\",\""+str(birthdate)+"\",\"1\")",end='')
     if i != nbIteration-1:
         print(",")
     else:
