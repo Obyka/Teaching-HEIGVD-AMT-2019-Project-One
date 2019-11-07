@@ -15,7 +15,7 @@ import javax.ejb.EJB;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 @MavenBuild
@@ -30,5 +30,27 @@ public class TestUsersManager {
         boolean created = usersManagerLocal.create("Obyka" + System.currentTimeMillis(), "password");
 
         assertTrue(created);
+    }
+
+    @Test
+    @Transactional(TransactionMode.COMMIT)
+    public void itShouldBePossibleToHaveAValidConnection() throws DuplicateKeyException, SQLException {
+        long currentTime = System.currentTimeMillis();
+        boolean created = usersManagerLocal.create("Obyka" + currentTime, "password");
+        boolean connected = usersManagerLocal.validConnection("Obyka" + currentTime, "password");
+
+        assertTrue(connected);
+        assertTrue(created);
+    }
+
+    @Test
+    @Transactional(TransactionMode.COMMIT)
+    public void itShoulBePossibleToFindAUserByUsername() throws DuplicateKeyException, SQLException {
+        long currentTime = System.currentTimeMillis();
+        boolean created = usersManagerLocal.create("Obyka" + currentTime, "password");
+        User user = usersManagerLocal.findUserByUsername("Obyka" + currentTime);
+
+        assertTrue(created);
+        assertEquals("Obyka" + currentTime, user.getUsername());
     }
 }
