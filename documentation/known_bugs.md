@@ -1,0 +1,2 @@
+# Bugs connus
+- Avec certaines version de Firefox, il n'est pas possible d'obtenir de session sur l'url `localhost` et donc impossible de se connecter (implémentation du navigateur). Comme solution temporaire, soit changer de navigateur, soit ajouter un alias à localhost dans le fichier hosts (e.g AMT)
