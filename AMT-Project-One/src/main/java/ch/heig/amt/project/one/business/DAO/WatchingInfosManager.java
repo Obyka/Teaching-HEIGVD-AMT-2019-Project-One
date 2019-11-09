@@ -221,6 +221,34 @@ public class WatchingInfosManager implements WatchingInfosManagerLocal {
         }
     }
 
+    public List<WatchingInfo> findAllTest(int limit, int offset){
+        List<WatchingInfo> watchingInfos = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM WatchingInfo LIMIT ?, ?");
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                long IDSerie = rs.getLong("IDSerie");
+                long IDViewer = rs.getLong("IDViewer");
+                int TimeSpent = rs.getInt("TimeSpent");
+                java.util.Date BeginningDate = rs.getDate("BeginningDate");
+                long idOwner = rs.getLong("OwnerID");
+
+                WatchingInfo watchingInfo = WatchingInfo.builder().idSerie(IDSerie).idViewer(IDViewer).timeSpent(TimeSpent).beginningDate(BeginningDate).build();
+                watchingInfo.setOwner(idOwner);
+                watchingInfos.add(watchingInfo);
+            }
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            Logger.getLogger(ch.heig.amt.project.one.business.DAO.WatchingInfosManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return watchingInfos;
+    }
+
     public int countByViewer(User user, long IDViewer){
         try {
             Connection connection = dataSource.getConnection();

@@ -1,4 +1,4 @@
-package ch.heig.amt.project.one.business.DAO;
+/*package ch.heig.amt.project.one.business.DAO;
 
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
 import ch.heig.amt.project.one.model.User;
@@ -54,3 +54,4 @@ public class TestUsersManager {
         assertEquals("Obyka" + currentTime, user.getUsername());
     }
 }
+*/

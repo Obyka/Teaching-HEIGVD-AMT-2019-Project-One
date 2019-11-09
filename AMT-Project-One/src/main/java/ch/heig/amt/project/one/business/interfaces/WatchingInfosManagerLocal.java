@@ -19,4 +19,5 @@ public interface WatchingInfosManagerLocal {
     public int count(User user);
     public int countBySerie(User user, long IDSerie);
     public int countByViewer(User user, long IDViewer);
+    public List<WatchingInfo> findAllTest(int limit, int offset);
 }

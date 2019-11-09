@@ -155,6 +155,15 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ListWatchingInfoServlet</servlet-name>
+    <servlet-class>ch.heig.amt.project.one.presentation.ListWatchingInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListWatchingInfoServlet</servlet-name>
+    <url-pattern>/restreint/listwatchinginfo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>DetailViewerServlet</servlet-name>
     <servlet-class>ch.heig.amt.project.one.presentation.DetailViewerServlet</servlet-class>
   </servlet>
