@@ -25,7 +25,7 @@ public class TestUsersManager {
     UsersManagerLocal usersManagerLocal;
 
     @Test
-    @Transactional(TransactionMode.COMMIT)
+    @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToCreateAUser() throws DuplicateKeyException, SQLException {
         boolean created = usersManagerLocal.create("Obyka" + System.currentTimeMillis(), "password");
 
@@ -33,7 +33,7 @@ public class TestUsersManager {
     }
 
     @Test
-    @Transactional(TransactionMode.COMMIT)
+    @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToHaveAValidConnection() throws DuplicateKeyException, SQLException {
         long currentTime = System.currentTimeMillis();
         boolean created = usersManagerLocal.create("Obyka" + currentTime, "password");
@@ -44,7 +44,7 @@ public class TestUsersManager {
     }
 
     @Test
-    @Transactional(TransactionMode.COMMIT)
+    @Transactional(TransactionMode.ROLLBACK)
     public void itShoulBePossibleToFindAUserByUsername() throws DuplicateKeyException, SQLException {
         long currentTime = System.currentTimeMillis();
         boolean created = usersManagerLocal.create("Obyka" + currentTime, "password");
