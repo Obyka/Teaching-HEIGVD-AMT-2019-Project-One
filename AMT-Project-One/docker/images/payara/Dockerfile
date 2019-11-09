@@ -10,7 +10,4 @@ echo 'create-jdbc-resource --connectionpoolid amt-pool jdbc/amtDatasource' >> my
 cat ${DEPLOY_COMMANDS} >> mycommands.asadmin && \
 ${PAYARA_PATH}/bin/asadmin start-domain -v --postbootcommandfile mycommands.asadmin ${PAYARA_DOMAIN}
 
-ADD AMT-project-one.war /opt/payara5/glassfish/domains/domain1/autodeploy
-
-
 # https://docs.oracle.com/cd/E26576_01/doc.312/e24938/create-jdbc-resource.htm#GSRFM00037
