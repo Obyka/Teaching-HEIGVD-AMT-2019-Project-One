@@ -60,3 +60,7 @@ Pour rendre la pagination plus agréable, nous regardons le nombre de page total
 3) Nous sommes entre les deux
 
 ![image](https://user-images.githubusercontent.com/28777250/68535790-519d1880-0348-11ea-9fb7-d36e56276ecd.png)
+
+Concernant les vues, nous avons utilisé un template `bootstrap` appelé `SB Admin 2` que nous avons customisé
+
+Pour générer les données nous avons créé un script python qui utilise la librairie `Faker` pour avoir au moins une partie des entités qui sembleront réelles. Ce script renvoie simplement les requêtes `INSERT INTO` correspondantes. Comme nous avons trouvé cette méthode trop lente pour l'insertion, nous avons alors exporté en CSV la base nouvellement créée, puis utiliser cela dans notre script de création avec des requêtes `LOAD INFILE`
