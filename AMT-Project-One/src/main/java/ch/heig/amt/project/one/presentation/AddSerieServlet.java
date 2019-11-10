@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Permet à un utilisateur d'accéder au formulaire d'insertion des séries
+ */
 public class AddSerieServlet extends HttpServlet {
     @EJB
     SeriesManagerLocal seriesManagerLocal;

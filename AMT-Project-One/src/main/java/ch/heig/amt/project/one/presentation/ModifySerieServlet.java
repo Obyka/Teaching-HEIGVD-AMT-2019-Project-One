@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Permet à un utilisateur d'accéder au formulaire de modification d'une série
+ */
 public class ModifySerieServlet extends HttpServlet {
     @EJB
     private SeriesManagerLocal seriesManagerLocal;

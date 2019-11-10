@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Permet à un utilisateur de visualiser tous les spectateurs
+ */
 public class ListViewersServlet extends HttpServlet {
     @EJB
     ViewersManagerLocal viewersManagerLocal;

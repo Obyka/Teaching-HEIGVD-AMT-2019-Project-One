@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur de supprimer un profil de visionnage
+ */
 public class DeleteWatchingInfoServlet extends HttpServlet {
     @EJB
     WatchingInfosManagerLocal watchingInfosManagerLocal;

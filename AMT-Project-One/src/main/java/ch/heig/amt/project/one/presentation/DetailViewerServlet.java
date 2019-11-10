@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Permet à un utilisateur de visualiser les détails d'un spectateur (et ses profils de visionnage liés)
+ */
 public class DetailViewerServlet extends HttpServlet {
 
     @EJB

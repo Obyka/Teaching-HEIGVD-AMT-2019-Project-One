@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur de visualiser toutes les séries
+ */
 public class ListSeriesServlet extends HttpServlet {
     @EJB
     SeriesManagerLocal seriesManager;

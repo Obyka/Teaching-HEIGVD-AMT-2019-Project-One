@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur de supprimer une série
+ */
 public class DeleteSerieServlet extends HttpServlet {
     @EJB
     SeriesManagerLocal seriesManagerLocal;

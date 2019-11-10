@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur d'accéder au formulaire d'insertion des profils de visionnage
+ */
 public class AddWatchingInfoServlet extends HttpServlet {
     @EJB
     private WatchingInfosManagerLocal watchingInfosManagerLocal;

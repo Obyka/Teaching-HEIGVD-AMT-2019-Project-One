@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Permet à un utilisateur de visualiser les détails d'une série (et ses profils de visionnage liés)
+ */
 public class DetailSerieServlet extends HttpServlet {
     @EJB
     SeriesManagerLocal seriesManagerLocal;

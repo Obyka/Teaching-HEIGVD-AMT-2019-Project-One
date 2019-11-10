@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur de supprimer un spectateur
+ */
 public class DeleteViewerServlet extends HttpServlet {
     @EJB
     ViewersManagerLocal viewersManagerLocal;

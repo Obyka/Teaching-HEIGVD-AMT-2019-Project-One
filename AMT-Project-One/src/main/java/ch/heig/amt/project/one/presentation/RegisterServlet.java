@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Permet à un visiteur de s'inscrire
+ */
 public class RegisterServlet extends HttpServlet {
     @EJB
     UsersManagerLocal usersManagerLocal;

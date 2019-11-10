@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Permet à un utilisateur d'accéder au formulaire de modification d'un spectateur
+ */
 public class ModifyViewerServlet extends HttpServlet {
     @EJB
     ViewersManagerLocal viewersManagerLocal;

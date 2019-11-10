@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Ce filtre permet d'empêcher aux utilisateurs connectés d'accéder aux pages de login et de register
+ */
 public class LoggedFilter implements Filter {
     public void destroy() {
     }

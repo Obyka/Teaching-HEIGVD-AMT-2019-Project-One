@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Permet à un utilisateur de se connecter
+ */
 public class LoginServlet extends HttpServlet {
     @EJB
     UsersManagerLocal usersManagerLocal;
