@@ -36,3 +36,17 @@ Deux utilisateurs sont déjà créé au lancement du projet
 
 **Il est fortement conseillé de se connecter en tant qu'Obyka car il est propriétaire des entités pré-générees.**
 
+## Description de l'implémentation et des aspects fonctionnels
+Nous discutons de cela dans un fichier markdown à part pour plus de clarté.
+Vous pouvez le retrouver [ici](documentation/functional_aspects.md)
+
+## Tests
+Nous avons documenté les tests dans un fichier markdown à part pour plus de clarté.
+Vous pouvez le retrouver [ici](documentation/testing.md)
+
+Un fichier séparé a également été créé pour les tests de charge, contenant une analyse de nos résultats.
+Vous pouvez le retrouver [ici](documentation/load_testing.md)
+
+## Liste des bugs connus
+Nous avons listés les bugs connus dans un fichier markdown à part pour plus de clarté.
+Vous pouvez le retrouver [ici](documentation/known_bugs.md)
