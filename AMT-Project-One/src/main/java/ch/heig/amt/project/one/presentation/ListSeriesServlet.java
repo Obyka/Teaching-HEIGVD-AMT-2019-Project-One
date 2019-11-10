@@ -30,11 +30,11 @@ public class ListSeriesServlet extends HttpServlet {
         if(req.getParameter("pagetable") != null) {
             try {
                 pagetable = Integer.valueOf(req.getParameter("pagetable"));
-                series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
             } catch(NumberFormatException nb) {
                 Logger.getLogger(ch.heig.amt.project.one.presentation.ListSeriesServlet.this.getClass().getName()).log(Level.SEVERE, null, nb);
             }
         }
+        series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
 
         if(series.size() > 0) {
             int count = seriesManager.count(user);

@@ -1,4 +1,4 @@
-package ch.heig.amt.project.one.business.DAO;
+/*package ch.heig.amt.project.one.business.DAO;
 
 import ch.heig.amt.project.one.business.interfaces.SeriesManagerLocal;
 import ch.heig.amt.project.one.business.interfaces.UsersManagerLocal;
@@ -105,3 +105,4 @@ public class TestSeriesManager {
         assertTrue(serieDeleted);
     }
 }
+ */
