@@ -74,7 +74,7 @@ Au début, le temps de réponse est très faible car le serveur parvient à rép
 ![image](graphics/average_1e5entities.png)
 ![image](graphics/average_1e6entities.png)
 
-Ces graphes représentent le temps d'exécution d'une requête lorsque le serveur est à charge "normal". On constate que le temps moyen augmente proportionnellement au temps minimum et maximum.
+On constate que le temps moyen augmente proportionnellement au temps minimum et maximum. La moyenne des temps de réponse est plutôt proche du temps maximum, ce qui signifie que le temps moyen représente le serveur à charge élevé. On n'a pas effecuté les tests en chargant les 1 million d'entrées sur plusieurs itérations en raison du temps de chargement très élevé.
 
 ### Maximum
 ![image](graphics/max_10entities.png)
@@ -82,7 +82,7 @@ Ces graphes représentent le temps d'exécution d'une requête lorsque le serveu
 ![image](graphics/max_1e5entities.png)
 ![image](graphics/max_1e6entities.png)
 
-On constate un accroîssement considérable du temps maximal de réponse lorsque le nombre de thread augmente. On est ici au point critique dans le traitement des requêtes. En effet, la valeur maximale correspond au pic d'activité du serveur. C'est la valeur la plus intéressante dans les tests car on peut vraiment bien observer si le serveur est capable de répondre rapidement aux requêtes des utilisateurs à pleine charge.
+On constate un accroîssement considérable du temps maximal de réponse lorsque le nombre de thread augmente. On est ici au point critique dans le traitement des requêtes. En effet, la valeur maximale correspond au pic d'activité du serveur. C'est la valeur la plus intéressante dans les tests car on peut vraiment bien observer si le serveur est capable de répondre rapidement aux requêtes des utilisateurs même si il est en surcharge.
 
 ### Données reçues
 ![image](graphics/received_10entities.png)
