@@ -60,26 +60,38 @@ Pour notre méthodologie nous avons suivi ces guidelines :
 /!\ Les tests ont été effectués dans notre VM de développement, ainsi les performences sont moindres.
 
 ## Graphiques
-### Moyenne
-![image](graphics/average_10entities.png)
-![image](graphics/average_1e3entities.png)
-![image](graphics/average_1e5entities.png)
-![image](graphics/average_1e6entities.png)  
 ### Minimum
 ![image](graphics/min_10entities.png)
 ![image](graphics/min_1e3entities.png)
 ![image](graphics/min_1e5entities.png)
 ![image](graphics/min_1e6entities.png)
+
+Au début, le temps de réponse est très faible car le serveur parvient à répondre aux requêtes rapidement. Lorsque le serveur se retrouve inondé, il doit mettre en queue d'attente les requêtes afin de ne pas les perdre et les traiter ultérieurement. Ce qui explique pourquoi le temps minimal augmente de façon conséquente selon le nombre de thread.
+
+### Moyenne
+![image](graphics/average_10entities.png)
+![image](graphics/average_1e3entities.png)
+![image](graphics/average_1e5entities.png)
+![image](graphics/average_1e6entities.png)
+
+Ces graphes représentent le temps d'exécution d'une requête lorsque le serveur est à charge "normal". On constate que le temps moyen augmente proportionnellement au temps minimum et maximum.
+
 ### Maximum
 ![image](graphics/max_10entities.png)
 ![image](graphics/max_1e3entities.png)
 ![image](graphics/max_1e5entities.png)
 ![image](graphics/max_1e6entities.png)
+
+On constate un accroîssement considérable du temps maximal de réponse lorsque le nombre de thread augmente. On est ici au point critique dans le traitement des requêtes. En effet, la valeur maximale correspond au pic d'activité du serveur. C'est la valeur la plus intéressante dans les tests car on peut vraiment bien observer si le serveur est capable de répondre rapidement aux requêtes des utilisateurs à pleine charge.
+
 ### Données reçues
 ![image](graphics/received_10entities.png)
 ![image](graphics/received_1e3entities.png)
 ![image](graphics/received_1e5entities.png)
 ![image](graphics/received_1e6entities.png)
+
+Lorsque l'on effectue une requête HTTP, le serveur doit traiter la requête, interroger le serveur de base de donnée, récupérer la réponse de la base de donnée et charger les objets dans la mémoire. C'est pour cela que l'on observe une augmentation croissante du nombre de données reçues.
+
 ### Comparatif
 ![image](graphics/comparative.png)  
 
