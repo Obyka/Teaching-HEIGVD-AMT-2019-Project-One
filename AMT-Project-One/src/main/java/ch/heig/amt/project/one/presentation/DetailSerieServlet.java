@@ -45,6 +45,8 @@ public class DetailSerieServlet extends HttpServlet {
         String sIdSerie = request.getParameter("idserie");
         int pagetable = 0;
         long idserie = 0;
+        request.setAttribute("username", user.getUsername());
+
 
         if(request.getParameter("pagetable") != null) {
             try {
@@ -75,7 +77,6 @@ public class DetailSerieServlet extends HttpServlet {
                             viewersInfo.add(pair);
                         }
                     }
-                    request.setAttribute("username", user.getUsername());
                     request.setAttribute("serie", serie);
                     request.setAttribute("viewersInfos", viewersInfo);
                     request.setAttribute("nbPage", nbPage);

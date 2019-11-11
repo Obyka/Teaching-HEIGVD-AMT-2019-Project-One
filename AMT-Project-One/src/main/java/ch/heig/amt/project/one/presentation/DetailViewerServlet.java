@@ -44,6 +44,7 @@ public class DetailViewerServlet extends HttpServlet {
         int NB_RECORD_PRINT = 50;
         String internError = null;
         User user = (User)request.getSession().getAttribute("user");
+        request.setAttribute("username", user.getUsername());
         String sIdViewer = request.getParameter("idviewer");
         int pagetable = 0;
         long IdViewer = 0;
@@ -77,7 +78,6 @@ public class DetailViewerServlet extends HttpServlet {
                             seriesInfo.add(pair);
                         }
                     }
-                    request.setAttribute("username", user.getUsername());
                     request.setAttribute("viewer", viewer);
                     request.setAttribute("seriesInfo", seriesInfo);
                     request.setAttribute("nbPage", nbPage);

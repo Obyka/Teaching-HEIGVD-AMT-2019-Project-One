@@ -40,10 +40,10 @@ public class ListViewersServlet extends HttpServlet {
         }
         List<Viewer> viewers = viewersManagerLocal.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
 
+        request.setAttribute("username", username);
         if(viewers.size() > 0) {
             int count = viewersManagerLocal.count(user);
             int nbPage = count / NB_RECORD_PRINT + ((count % NB_RECORD_PRINT == 0) ? 0 : 1);
-            request.setAttribute("username", username);
             request.setAttribute("nbPage", nbPage);
             request.setAttribute("viewers", viewers);
             request.setAttribute("pagetable", pagetable);

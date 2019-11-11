@@ -39,12 +39,12 @@ public class ListSeriesServlet extends HttpServlet {
         }
         series = seriesManager.findAll(user, (pagetable * NB_RECORD_PRINT), NB_RECORD_PRINT);
 
+        req.setAttribute("username", username);
         if(series.size() > 0) {
             int count = seriesManager.count(user);
             int nbPage = count / NB_RECORD_PRINT + ((count % NB_RECORD_PRINT == 0) ? 0 : 1);
             req.setAttribute("nbPage", nbPage);
             req.setAttribute("pagetable", pagetable);
-            req.setAttribute("username", username);
             req.setAttribute("series", series);
         }
         else {
