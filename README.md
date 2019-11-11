@@ -5,8 +5,7 @@ Pour le projet 1 du cours d'AMT, nous avons conceptualisé et développé un sit
 ## Déploiement de l'architecture
 Voici les instructions pour déployer le projet à l'aide de `docker-compose
 - Cloner le repo
-- Se déplacer dans le dossier `topology-project-one`
-- Lancer `docker-compose up --build`
+- Lancer `start.sh` /!\ Stoppera l'infrastructure de test, si cette dernière est démarrée
 
 Après un certain temps (autour d'une minute dû à la création d'un million d'entités dans la DB), le projet est prêt à être utiliser et trois containters ont été déployés, examinons-les ensemble.
 
@@ -41,6 +40,16 @@ Nous discutons de cela dans un fichier markdown à part pour plus de clarté.
 Vous pouvez le retrouver [ici](documentation/functional_aspects.md)
 
 ## Tests
+
+Pour lancer les tests, il faut :
+
+- Lancer `test.sh` à la racine du projet /!\ Stoppera l'infrastructure de production, si cette dernière est démarrée
+- Attendre que payara ait fini de se démarrer
+- Se déplayer dans le répertoire `AMT-Project-One`
+- Lancer mvn clean test
+
+Il y aura sûrement votre certificat pour payara à importer (il a été discuté que cette manipulation sera faite de votre côté)
+
 Nous avons documenté les tests dans un fichier markdown à part pour plus de clarté.
 Vous pouvez le retrouver [ici](documentation/testing.md)
 
